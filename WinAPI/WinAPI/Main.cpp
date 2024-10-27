@@ -41,7 +41,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 	case WM_CLOSE:
-		EndDialog(hwnd, 0);
+		EndDialog(hwnd, 0); break;
 		break;
 	}
 	return FALSE;
