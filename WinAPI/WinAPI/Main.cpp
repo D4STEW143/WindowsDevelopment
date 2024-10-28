@@ -40,21 +40,16 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case IDOK: MessageBox(hwnd, "Была нажата кнопка ОК", "Info", MB_OK | MB_ICONINFORMATION); break;
 		case IDCANCEL: EndDialog(hwnd, 0); break;
 		case IDC_BUTTON1: {
-			//HWND hEdit1 = GetDlgItem(hwnd, IDC_EDIT1);
-			INT chText;
-			CHAR* chBufferTmp[1024];
-			UINT hEdit1 = GetDlgItemText(hwnd, IDC_EDIT1, (LPSTR)chBufferTmp, 1024);
-			CHAR* chBuffer[sizeof(hEdit1)];
-			for (int i = 0; i < sizeof(hEdit1); i++)
+			CHAR chBufferTmp[256]; //массив для получения строки с ввода
+			UINT hEdit1 = GetDlgItemText(hwnd, IDC_EDIT1, (LPSTR)chBufferTmp, sizeof(chBufferTmp)); //получаем строку с первого edit control и даем ее в массив chBufferTmp
+			CHAR* chBuffer = new CHAR[hEdit1+1];//создаем динамический массив равный количеству символов полученой строки + 1
+			for (int i = 0; i < hEdit1; i++)
 			{
-				chBuffer[i] = chBufferTmp[i];
+				chBuffer[i] = chBufferTmp[i]; //переносим данные из массива для считывания в массив для показа
 			}
-			BOOL hEdit2 = SetDlgItemText(hwnd, IDC_EDIT2, (LPCSTR)chBuffer);
-			//chText = SendMessage(hEdit1, EM_GETLINE, 0, (LPARAM)(LPSTR)chBuffer);
-			//chBuffer[chText] =(LPTSTR)"\0";
-			//MessageBox(hwnd, "Строка скопирована и будет вставлена во второе Edit-окно", "CopyInfo", MB_OK | MB_ICONINFORMATION);
-			//MessageBox(hwnd, (LPTSTR)chBuffer, "CopyInfo", MB_OK | MB_ICONINFORMATION);
-
+			chBuffer[hEdit1] = '\0';//зануляем конец массива(без этого показывается ерунда в конце строки)
+			BOOL hEdit2 = SetDlgItemText(hwnd, IDC_EDIT2, (LPSTR)chBuffer);//выводим массив во второй edit control
+			delete[] chBuffer;//очищаем память 
 			break;
 		}
 		}
