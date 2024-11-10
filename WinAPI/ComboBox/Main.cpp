@@ -3,6 +3,8 @@
 #include<cstdio>
 #include"resource.h"
 
+//#define 
+
 CONST CHAR* init_values[] = { "This", "is", "my", "first", "Combo", "Box" };
 
 BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
