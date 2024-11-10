@@ -15,11 +15,10 @@ UserString ItemForEditCtrl;
 //HINSTANCE hInstance;
 #endif // ADD_DEL
 
-
 CONST CHAR* initValues[] = { "This", "is", "my", "first", "List", "Box" };
 
 BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-BOOL CALLBACK DlgProc1(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK DlgProcAddItem(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, INT nCmdShow)
 {
@@ -58,8 +57,8 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		{
 #ifdef ADD_DEL
 			HWND hList = GetDlgItem(hwnd, IDC_LIST1);
-			DialogBox(NULL, MAKEINTRESOURCE(IDD_DATA), NULL, (DLGPROC)DlgProc1, 0);
-			SendMessageA(hList, LB_ADDSTRING, 0, (LPARAM)ItemForEditCtrl.Data);
+			DialogBox(NULL, MAKEINTRESOURCE(IDD_DATA), NULL, (DLGPROC)DlgProcAddItem, 0);
+			SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)ItemForEditCtrl.Data);
 #endif // ADD_DEL
 			break;
 		}
@@ -81,7 +80,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 #ifdef ADD_DEL
 
-BOOL CALLBACK DlgProc1(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+BOOL CALLBACK DlgProcAddItem(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg)
 	{
@@ -89,16 +88,13 @@ BOOL CALLBACK DlgProc1(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_COMMAND:
 	{
-		switch (LOWORD(lParam))
+		switch (LOWORD(wParam))
 		{
 		case IDOK:
 		{
 			HWND hEdit = GetDlgItem(hwnd, IDC_EDIT1);
-			GetDlgItemText(hEdit, IDC_EDIT1, (LPSTR)ItemForEditCtrl.Data, 256);
-			EndDialog(hwnd, 0);
-			break;
+			GetDlgItemTextA(hEdit, IDC_EDIT1, (LPSTR)ItemForEditCtrl.Data, 256);
 		}
-		break;
 		case IDCANCEL:
 		{
 			EndDialog(hwnd, 0);
