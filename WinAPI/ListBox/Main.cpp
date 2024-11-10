@@ -88,7 +88,7 @@ BOOL CALLBACK DlgProc1(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case IDOK:
 		{
 			HWND hEdit = GetDlgItem(hwnd, IDC_EDIT1);
-			//UserString ItemForEditCtrl;
+			UserString ItemForEditCtrl;
 			GetDlgItemTextA(hEdit, IDC_EDIT1, (LPSTR)ItemForEditCtrl.Data, 256);
 			EndDialog(hwnd, 0);
 			break;
