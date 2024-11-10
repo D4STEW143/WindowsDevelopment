@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+п»ї#define _CRT_SECURE_NO_WARNINGS
 #include <Windows.h>
 #include <cstdio>
 #include "resource.h"
@@ -12,6 +12,7 @@ struct UserString
 	char* Data[257];
 };
 UserString ItemForEditCtrl;
+//HINSTANCE hInstance;
 #endif // ADD_DEL
 
 
@@ -48,7 +49,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			CHAR sz_message[SIZE]{};
 			INT i = SendMessage(hList, LB_GETCURSEL, 0, 0);
 			SendMessage(hList, LB_GETTEXT, i, (LPARAM)sz_buffer);
-			sprintf(sz_message, "Вы выбрали пункт №%i со значением \"%s\".", i, sz_buffer);
+			sprintf(sz_message, "Р’С‹ РІС‹Р±СЂР°Р»Рё РїСѓРЅРєС‚ в„–%i СЃРѕ Р·РЅР°С‡РµРЅРёРµРј \"%s\".", i, sz_buffer);
 			MessageBox(hwnd, sz_message, "Selected value", MB_OK | MB_ICONINFORMATION);
 			break;
 		}
@@ -58,9 +59,14 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 #ifdef ADD_DEL
 			HWND hList = GetDlgItem(hwnd, IDC_LIST1);
 			DialogBox(NULL, MAKEINTRESOURCE(IDD_DATA), NULL, (DLGPROC)DlgProc1, 0);
-			SendMessage(hList, LB_ADDSTRING, 0, (LPARAM)ItemForEditCtrl.Data);
+			SendMessageA(hList, LB_ADDSTRING, 0, (LPARAM)ItemForEditCtrl.Data);
 #endif // ADD_DEL
 			break;
+		}
+		break;
+		case IDC_DELBUT:
+		{
+			
 		}
 		break;
 		case IDCANCEL:EndDialog(hwnd, 0);break;
@@ -88,8 +94,7 @@ BOOL CALLBACK DlgProc1(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case IDOK:
 		{
 			HWND hEdit = GetDlgItem(hwnd, IDC_EDIT1);
-			UserString ItemForEditCtrl;
-			GetDlgItemTextA(hEdit, IDC_EDIT1, (LPSTR)ItemForEditCtrl.Data, 256);
+			GetDlgItemText(hEdit, IDC_EDIT1, (LPSTR)ItemForEditCtrl.Data, 256);
 			EndDialog(hwnd, 0);
 			break;
 		}
