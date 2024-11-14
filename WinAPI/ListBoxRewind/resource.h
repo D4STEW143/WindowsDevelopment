@@ -5,11 +5,13 @@
 #define IDD_DIALOG1                     101
 #define IDI_ICON1                       105
 #define IDD_DIALOG_ADD_ITEM             106
+#define IDD_DIALOG_EDIT_ITEM            107
 #define IDC_LIST                        1001
 #define IDC_BUTTON_ADD                  1002
 #define IDC_BUTTON_DELETE               1003
 #define IDC_EDIT1                       1004
 #define IDC_EDIT_ADD_ITEM               1004
+#define IDC_EDIT_ADD_ITEM2              1005
 
 // Next default values for new objects
 // 
@@ -17,7 +19,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        108
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1005
+#define _APS_NEXT_CONTROL_VALUE         1006
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

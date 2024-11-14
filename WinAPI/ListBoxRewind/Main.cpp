@@ -7,6 +7,7 @@ CONST CHAR* g_VALUES[] = { "This", "is", "my", "first", "List", "Box" };
 
 BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK DlgProcAddItem(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK DlgProcEditItem(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow)
 {
@@ -26,14 +27,36 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		HWND hListBox = GetDlgItem(hwnd, IDC_LIST);
 		for (int i = 0; i < sizeof(g_VALUES) / sizeof(g_VALUES[0]); i++)
 			SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM)g_VALUES[i]);
+		SetFocus(hListBox);
 	}
 	break;
+
+	case WM_KEYDOWN:
+		if (wParam == VK_DELETE)
+		{
+			MessageBox(hwnd, "INFO", "INFO", MB_OK | MB_ICONWARNING);
+		}
+
 	case WM_COMMAND:
+		if (HIWORD(wParam) == LBN_DBLCLK)
+		{
+			DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG_EDIT_ITEM), hwnd, (DLGPROC)DlgProcEditItem, 0);
+		}
+
 		switch (LOWORD(wParam))
 		{
 		case IDC_BUTTON_ADD:
 			DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG_ADD_ITEM), hwnd, (DLGPROC)DlgProcAddItem, 0);
 			break;
+		case IDC_BUTTON_DELETE:
+		{
+			HWND hListBox = GetDlgItem(hwnd, IDC_LIST);
+			if (SendMessage(hListBox, LB_GETCURSEL, 0, 0) != LB_ERR)
+				SendMessage(hListBox, LB_DELETESTRING, SendMessage(hListBox, LB_GETCURSEL, 0, 0), 0);
+			else
+				SendMessage(hListBox, LB_DELETESTRING, SendMessage(hListBox, LB_GETCOUNT, 0, 0) - 1, 0);
+		}
+		break;
 		case IDCANCEL:
 			EndDialog(hwnd, 0);
 			break;
@@ -63,25 +86,77 @@ BOOL CALLBACK DlgProcAddItem(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	switch (uMsg)
 	{
 	case WM_INITDIALOG:
+	{
+		HWND hEdit = GetDlgItem(hwnd, IDC_EDIT_ADD_ITEM);
+		SetFocus(hEdit);
+	}
 		break;
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
 		case IDOK:
 		{
+			HWND hParent = GetParent(hwnd);
+			HWND hListBox = GetDlgItem(hParent, IDC_LIST);
+			HWND hEdit = GetDlgItem(hwnd, IDC_EDIT_ADD_ITEM);
+
 			CONST INT SIZE = 256;
 			CHAR sz_buffer[SIZE]{};
-			HWND hEdit = GetDlgItem(hwnd, IDC_EDIT_ADD_ITEM);
 			SendMessage(hEdit, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
 
-			HWND hParent = GetParent(hwnd);
-
-			HWND hListBox = GetDlgItem(hParent, IDC_LIST);
-
-			SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM)sz_buffer);
-			
+			//Проверка на копию
+			if (SendMessage(hListBox, LB_FINDSTRINGEXACT, 0, (LPARAM)sz_buffer) == LB_ERR)
+				SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM)sz_buffer);
+			else MessageBox(hwnd, "Обнаруженно совпадение.", "Error", MB_OK | MB_ICONWARNING);			
 		}
 		
+		case IDCANCEL: EndDialog(hwnd, 0); break;
+		}
+		break;
+	case WM_CLOSE: EndDialog(hwnd, 0); break;
+	}
+	return FALSE;
+}
+
+BOOL CALLBACK DlgProcEditItem(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	switch (uMsg)
+	{
+	case WM_INITDIALOG:
+	{
+		HWND hParent = GetParent(hwnd);
+		HWND hListBox = GetDlgItem(hParent, IDC_LIST);
+		HWND hEdit = GetDlgItem(hwnd, IDC_EDIT_ADD_ITEM2);
+		SetFocus(hEdit);
+		CONST INT SIZE = 256;
+		CHAR sz_buffer[SIZE]{};
+		SendMessage(hListBox, LB_GETTEXT, SendMessage(hListBox, LB_GETCURSEL, 0, 0), (LPARAM)sz_buffer);
+		SendMessage(hEdit, WM_SETTEXT, NULL, (LPARAM)sz_buffer);
+	}
+	break;
+	case WM_COMMAND:
+		switch (LOWORD(wParam))
+		{
+		case IDOK:
+		{
+			HWND hParent = GetParent(hwnd);
+			HWND hListBox = GetDlgItem(hParent, IDC_LIST);
+			HWND hEdit = GetDlgItem(hwnd, IDC_EDIT_ADD_ITEM2);
+
+			CONST INT SIZE = 256;
+			CHAR sz_buffer[SIZE]{};
+
+			SendMessage(hEdit, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
+
+			if (SendMessage(hListBox, LB_FINDSTRINGEXACT, 0, (LPARAM)sz_buffer) == LB_ERR)
+			{
+				//Почему это работает в таком порядке, и не работает в обратном? Хотя по логике должно быть наоборот.
+				SendMessage(hListBox, LB_INSERTSTRING, SendMessage(hListBox, LB_GETCURSEL, 0, 0), (LPARAM)sz_buffer);
+				SendMessage(hListBox, LB_DELETESTRING, SendMessage(hListBox, LB_GETCURSEL, 0, 0), 0);
+			}
+			else MessageBox(hwnd, "Обнаруженно совпадение.", "Error", MB_OK | MB_ICONWARNING);
+		}
+
 		case IDCANCEL: EndDialog(hwnd, 0); break;
 		}
 		break;
