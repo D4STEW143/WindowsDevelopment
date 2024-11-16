@@ -74,7 +74,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			switch (wParam)
 			{
 			case VK_DELETE:
-				SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_DELETE), (LPARAM)GetDlgItem(hwnd, IDC_LIST));
+				SendMessage(hwnd, WM_COMMAND, MAKEWPARAM(IDC_BUTTON_DELETE,BN_CLICKED), (LPARAM)GetDlgItem(hwnd, IDC_BUTTON_DELETE));
 				break;
 			}
 		}
