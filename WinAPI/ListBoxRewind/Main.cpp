@@ -72,6 +72,13 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			sprintf(sz_message, "Вы выбрали эллемент №%i со значение \"%s\".", i, sz_buffer);
 			MessageBox(hwnd, sz_message, "Info", MB_OK | MB_ICONINFORMATION);
 		}
+		case WM_KEYDOWN:
+			switch (wParam)
+			{
+			case VK_DELETE:
+				SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_DELETE), (LPARAM)GetDlgItem(hwnd, IDC_LIST));
+				break;
+			}
 		}
 		break;
 	case WM_CLOSE:
