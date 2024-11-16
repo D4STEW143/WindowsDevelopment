@@ -31,17 +31,15 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 	break;
 
-	case WM_KEYDOWN:
-		if (wParam == VK_DELETE)
-		{
-			MessageBox(hwnd, "INFO", "INFO", MB_OK | MB_ICONWARNING);
-		}
-
 	case WM_COMMAND:
 		if (HIWORD(wParam) == LBN_DBLCLK)
 		{
 			DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG_EDIT_ITEM), hwnd, (DLGPROC)DlgProcEditItem, 0);
 		}
+		/*if (LOWORD(wParam) == VK_DELETE)
+		{
+			SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_DELETE), (LPARAM)GetDlgItem(hwnd, IDC_LIST));
+		}*/
 
 		switch (LOWORD(wParam))
 		{
