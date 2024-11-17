@@ -31,18 +31,34 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 	break;
 
+	case WM_VKEYTOITEM:
+		switch (wParam)
+		{
+		case VK_DELETE:
+			SendMessage(hwnd, WM_COMMAND, MAKEWPARAM(IDC_BUTTON_DELETE, BN_CLICKED), (LPARAM)GetDlgItem(hwnd, IDC_BUTTON_DELETE));
+			break;
+		}
+
 	case WM_COMMAND:
-		if (HIWORD(wParam) == LBN_DBLCLK)
+		/*if (HIWORD(wParam) == LBN_DBLCLK)
 		{
 			DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG_EDIT_ITEM), hwnd, (DLGPROC)DlgProcEditItem, 0);
 		}
-		/*if (LOWORD(wParam) == VK_DELETE)
+		if (LOWORD(wParam) == VK_DELETE)
 		{
 			SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_DELETE), (LPARAM)GetDlgItem(hwnd, IDC_LIST));
 		}*/
 
 		switch (LOWORD(wParam))
 		{
+		case IDC_LIST:
+		{
+			if (HIWORD(wParam) == LBN_DBLCLK)//LBN-ListBoxNotification
+			{
+				DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG_EDIT_ITEM), hwnd, (DLGPROC)DlgProcEditItem, 0);
+			}
+		}
+		break;
 		case IDC_BUTTON_ADD:
 			DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_DIALOG_ADD_ITEM), hwnd, (DLGPROC)DlgProcAddItem, 0);
 			break;
@@ -70,13 +86,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			sprintf(sz_message, "Вы выбрали эллемент №%i со значение \"%s\".", i, sz_buffer);
 			MessageBox(hwnd, sz_message, "Info", MB_OK | MB_ICONINFORMATION);
 		}
-		case WM_KEYDOWN:
-			switch (wParam)
-			{
-			case VK_DELETE:
-				SendMessage(hwnd, WM_COMMAND, MAKEWPARAM(IDC_BUTTON_DELETE,BN_CLICKED), (LPARAM)GetDlgItem(hwnd, IDC_BUTTON_DELETE));
-				break;
-			}
+		
 		}
 		break;
 	case WM_CLOSE:
@@ -110,9 +120,13 @@ BOOL CALLBACK DlgProcAddItem(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			SendMessage(hEdit, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
 
 			//Проверка на копию
-			if (SendMessage(hListBox, LB_FINDSTRINGEXACT, 0, (LPARAM)sz_buffer) == LB_ERR)
+			if (SendMessage(hListBox, LB_FINDSTRINGEXACT, -1, (LPARAM)sz_buffer) == LB_ERR)
 				SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM)sz_buffer);
-			else MessageBox(hwnd, "Обнаруженно совпадение.", "Error", MB_OK | MB_ICONWARNING);			
+			else
+			{
+				INT answer = MessageBox(hwnd, "Обнаруженно совпадение. Хотите ввести что-то другое?", "Error", MB_YESNO | MB_ICONWARNING);
+				if (answer == IDYES) break;
+			}
 		}
 		
 		case IDCANCEL: EndDialog(hwnd, 0); break;
@@ -129,16 +143,21 @@ BOOL CALLBACK DlgProcEditItem(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 	{
 	case WM_INITDIALOG:
 	{
+		//SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)"Изменить текст.");
 		HWND hParent = GetParent(hwnd);
 		HWND hListBox = GetDlgItem(hParent, IDC_LIST);
 		HWND hEdit = GetDlgItem(hwnd, IDC_EDIT_ADD_ITEM2);
-		SetFocus(hEdit);
 		CONST INT SIZE = 256;
 		CHAR sz_buffer[SIZE]{};
 		SendMessage(hListBox, LB_GETTEXT, SendMessage(hListBox, LB_GETCURSEL, 0, 0), (LPARAM)sz_buffer);
 		SendMessage(hEdit, WM_SETTEXT, NULL, (LPARAM)sz_buffer);
+		SetFocus(hEdit);
+		INT length = SendMessage(hEdit, WM_GETTEXTLENGTH, 0, 0);
+		SendMessage(hEdit, EM_SETSEL, length, length); //выделяем текст в окне едит и каретка уходит в крайнее положение справа
+		//SendMessage(hEdit, EM_REPLACESEL, 0, length);
 	}
 	break;
+
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
@@ -153,9 +172,8 @@ BOOL CALLBACK DlgProcEditItem(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam
 
 			SendMessage(hEdit, WM_GETTEXT, SIZE, (LPARAM)sz_buffer);
 
-			if (SendMessage(hListBox, LB_FINDSTRINGEXACT, 0, (LPARAM)sz_buffer) == LB_ERR)
+			if (SendMessage(hListBox, LB_FINDSTRINGEXACT, -1, (LPARAM)sz_buffer) == LB_ERR)
 			{
-				//Почему это работает в таком порядке, и не работает в обратном? Хотя по логике должно быть наоборот.
 				SendMessage(hListBox, LB_INSERTSTRING, SendMessage(hListBox, LB_GETCURSEL, 0, 0), (LPARAM)sz_buffer);
 				SendMessage(hListBox, LB_DELETESTRING, SendMessage(hListBox, LB_GETCURSEL, 0, 0), 0);
 			}
