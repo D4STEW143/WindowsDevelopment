@@ -31,13 +31,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 	break;
 
-	case WM_VKEYTOITEM:
-		switch (wParam)
-		{
-		case VK_DELETE:
-			SendMessage(hwnd, WM_COMMAND, MAKEWPARAM(IDC_BUTTON_DELETE, BN_CLICKED), (LPARAM)GetDlgItem(hwnd, IDC_BUTTON_DELETE));
-			break;
-		}
+
 
 	case WM_COMMAND:
 		/*if (HIWORD(wParam) == LBN_DBLCLK)
@@ -86,7 +80,20 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			sprintf(sz_message, "Вы выбрали эллемент №%i со значение \"%s\".", i, sz_buffer);
 			MessageBox(hwnd, sz_message, "Info", MB_OK | MB_ICONINFORMATION);
 		}
-		
+
+		}
+		break;
+
+	case WM_VKEYTOITEM:
+		switch (LOWORD(wParam))
+		{
+		case VK_DELETE:
+			//SendMessage(hwnd, WM_COMMAND, MAKEWPARAM(IDC_BUTTON_DELETE, BN_CLICKED), (LPARAM)GetDlgItem(hwnd, IDC_BUTTON_DELETE));
+			SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_DELETE), (LPARAM)GetDlgItem(hwnd, IDC_LIST));
+			break;
+		case VK_RETURN:
+			SendMessage(hwnd, WM_COMMAND, MAKEWPARAM(IDC_LIST, LBN_DBLCLK), (LPARAM)GetDlgItem(hwnd, IDC_LIST));
+			break;
 		}
 		break;
 	case WM_CLOSE:
@@ -95,6 +102,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	}
 	return FALSE;
 }
+
 
 BOOL CALLBACK DlgProcAddItem(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -105,7 +113,7 @@ BOOL CALLBACK DlgProcAddItem(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		HWND hEdit = GetDlgItem(hwnd, IDC_EDIT_ADD_ITEM);
 		SetFocus(hEdit);
 	}
-		break;
+	break;
 	case WM_COMMAND:
 		switch (LOWORD(wParam))
 		{
@@ -121,15 +129,18 @@ BOOL CALLBACK DlgProcAddItem(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 			//Проверка на копию
 			if (SendMessage(hListBox, LB_FINDSTRINGEXACT, -1, (LPARAM)sz_buffer) == LB_ERR)
+			{
 				SendMessage(hListBox, LB_ADDSTRING, 0, (LPARAM)sz_buffer);
+			}
 			else
 			{
 				INT answer = MessageBox(hwnd, "Обнаруженно совпадение. Хотите ввести что-то другое?", "Error", MB_YESNO | MB_ICONWARNING);
 				if (answer == IDYES) break;
 			}
 		}
-		
-		case IDCANCEL: EndDialog(hwnd, 0); break;
+
+		case IDCANCEL: EndDialog(hwnd, 0);
+			break;
 		}
 		break;
 	case WM_CLOSE: EndDialog(hwnd, 0); break;
