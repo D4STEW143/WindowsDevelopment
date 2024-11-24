@@ -20,8 +20,8 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR  lpCmdLine, I
 	wClass.cbClsExtra = 0;
 	wClass.cbWndExtra = 0;
 
-	wClass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON1));
-	wClass.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON2));
+	wClass.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON_CCross));
+	wClass.hIconSm = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ICON_DEVIL));
 	wClass.hCursor = (HCURSOR)LoadImage(hInstance, "Cursors\\Hand.ani", IMAGE_CURSOR, 32, 32, LR_LOADFROMFILE);
 	wClass.hbrBackground = (HBRUSH)COLOR_WINDOW;
 
@@ -109,7 +109,7 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		GetWindowRect(hwnd, &rect);
 		INT width = rect.right - rect.left;
 		INT height = rect.bottom - rect.top;
-		//sprintf_s(locChng, "%s (Location LT:(%ix%i),  LB:(%ix%i),  RT:(%ix%i),  RB:(%ix%i)", g_sz_WINDOW_CLASS, (int)rect.left, (int)rect.top, (int)rect.left, (int)rect.bottom, (int)rect.right, (int)rect.top, (int)rect.right, (int)rect.bottom);
+		//sprintf_s(change, "%s (Location LT:(%ix%i),  LB:(%ix%i),  RT:(%ix%i),  RB:(%ix%i)", g_sz_WINDOW_CLASS, (int)rect.left, (int)rect.top, (int)rect.left, (int)rect.bottom, (int)rect.right, (int)rect.top, (int)rect.right, (int)rect.bottom);
 		sprintf
 		(
 			change,

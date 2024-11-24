@@ -135,6 +135,10 @@
   <ItemGroup>
     <ClInclude Include="resource.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="ICON\7345914_demon_pentagram_witchcraft_occult_esoteric_icon.ico" />
+    <Image Include="ICON\ms visual c++.ico" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

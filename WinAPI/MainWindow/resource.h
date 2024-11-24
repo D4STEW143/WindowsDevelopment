@@ -3,7 +3,9 @@
 // Used by Resource.rc
 //
 #define IDI_ICON1                       104
+#define IDI_ICON_CCross                 104
 #define IDI_ICON2                       106
+#define IDI_ICON_DEVIL                  106
 
 // Next default values for new objects
 // 

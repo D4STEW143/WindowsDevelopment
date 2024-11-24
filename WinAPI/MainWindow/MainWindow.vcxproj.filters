@@ -29,4 +29,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="ICON\ms visual c++.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ICON\7345914_demon_pentagram_witchcraft_occult_esoteric_icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
