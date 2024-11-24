@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ListBoxRewind", "ListBoxRew
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MainWindow", "MainWindow\MainWindow.vcxproj", "{D66DD9E3-8C8B-4B6C-B33D-A1C53D6C1F0A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Calc", "Calc\Calc.vcxproj", "{C36AC6A2-6E06-4D86-B09C-0EF74C42654D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{D66DD9E3-8C8B-4B6C-B33D-A1C53D6C1F0A}.Release|x64.Build.0 = Release|x64
 		{D66DD9E3-8C8B-4B6C-B33D-A1C53D6C1F0A}.Release|x86.ActiveCfg = Release|Win32
 		{D66DD9E3-8C8B-4B6C-B33D-A1C53D6C1F0A}.Release|x86.Build.0 = Release|Win32
+		{C36AC6A2-6E06-4D86-B09C-0EF74C42654D}.Debug|x64.ActiveCfg = Debug|x64
+		{C36AC6A2-6E06-4D86-B09C-0EF74C42654D}.Debug|x64.Build.0 = Debug|x64
+		{C36AC6A2-6E06-4D86-B09C-0EF74C42654D}.Debug|x86.ActiveCfg = Debug|Win32
+		{C36AC6A2-6E06-4D86-B09C-0EF74C42654D}.Debug|x86.Build.0 = Debug|Win32
+		{C36AC6A2-6E06-4D86-B09C-0EF74C42654D}.Release|x64.ActiveCfg = Release|x64
+		{C36AC6A2-6E06-4D86-B09C-0EF74C42654D}.Release|x64.Build.0 = Release|x64
+		{C36AC6A2-6E06-4D86-B09C-0EF74C42654D}.Release|x86.ActiveCfg = Release|Win32
+		{C36AC6A2-6E06-4D86-B09C-0EF74C42654D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
