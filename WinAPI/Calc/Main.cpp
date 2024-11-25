@@ -23,6 +23,7 @@
 #define IDC_BUTTON_CLR			1016 //Clear
 #define IDC_BUTTON_EQUAL		1017 
 
+#define LOGIC
 
 CONST CHAR g_sz_WINDOW_CLASS[] = "Calc_VPD_311";
 
@@ -104,15 +105,204 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		(
 			NULL, "Edit", "0",
 			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_RIGHT,
-			10, 10,
-			400, 22,
+			g_i_START_X, g_i_START_Y,
+			g_i_SCREEN_WIDTH, g_i_SCREEN_HEIGHT,
 			hwnd,
-			(HMENU)IDC_BUTTON_0,
+			(HMENU)IDC_EDIT_DISPLAY,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hBut0 = CreateWindowEx
+		(
+			NULL, "Button", "0",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL + g_i_BUTTON_SIZE, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL * 3 + g_i_BUTTON_SIZE * 3,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_0,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hBut1 = CreateWindowEx
+		(
+			NULL, "Button", "1",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL * 2 + g_i_BUTTON_SIZE * 2,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_1,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hBut2 = CreateWindowEx
+		(
+			NULL, "Button", "2",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL + g_i_BUTTON_SIZE, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL * 2 + g_i_BUTTON_SIZE * 2,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_2,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hBut3 = CreateWindowEx
+		(
+			NULL, "Button", "3",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL * 2 + g_i_BUTTON_SIZE * 2, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL * 2 + g_i_BUTTON_SIZE * 2,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_3,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hBut4 = CreateWindowEx
+		(
+			NULL, "Button", "4",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL + g_i_BUTTON_SIZE,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_4,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hBut5 = CreateWindowEx
+		(
+			NULL, "Button", "5",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL + g_i_BUTTON_SIZE, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL + g_i_BUTTON_SIZE,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_5,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hBut6 = CreateWindowEx
+		(
+			NULL, "Button", "6",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL * 2 + g_i_BUTTON_SIZE * 2, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL + g_i_BUTTON_SIZE,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_6,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hBut7 = CreateWindowEx
+		(
+			NULL, "Button", "7",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_7,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hBut8 = CreateWindowEx
+		(
+			NULL, "Button", "8",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL + g_i_BUTTON_SIZE, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_8,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hBut9 = CreateWindowEx
+		(
+			NULL, "Button", "9",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL * 2 + g_i_BUTTON_SIZE * 2, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_9,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hButEqual = CreateWindowEx
+		(
+			NULL, "Button", "=",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL * 5 + g_i_BUTTON_SIZE * 5, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL * 2 + g_i_BUTTON_SIZE * 2,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE * 2 + g_i_INTERVAL,
+			hwnd, (HMENU)IDC_BUTTON_EQUAL,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hButDot = CreateWindowEx
+		(
+			NULL, "Button", ",",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL * 2 + g_i_BUTTON_SIZE * 2, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL * 3 + g_i_BUTTON_SIZE * 3,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_POINT,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hButPlus = CreateWindowEx
+		(
+			NULL, "Button", "+",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL * 4 + g_i_BUTTON_SIZE * 4, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_PLUS,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hButMinus = CreateWindowEx
+		(
+			NULL, "Button", "-",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL * 4 + g_i_BUTTON_SIZE * 4, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL + g_i_BUTTON_SIZE,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_MINUS,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hButMultiply = CreateWindowEx
+		(
+			NULL, "Button", "*",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL * 4 + g_i_BUTTON_SIZE * 4, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL * 2 + g_i_BUTTON_SIZE * 2,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_ASTER,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hButDivide = CreateWindowEx
+		(
+			NULL, "Button", "/",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL * 4 + g_i_BUTTON_SIZE * 4, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL * 3 + g_i_BUTTON_SIZE * 3,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_SLASH,
+			GetModuleHandle(NULL), NULL
+		);
+
+		HWND hButClr = CreateWindowEx
+		(
+			NULL, "Button", "Clear",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL * 5 + g_i_BUTTON_SIZE * 5, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_CLR,
+			GetModuleHandle(NULL), NULL
+		);
+		HWND hButBSP = CreateWindowEx
+		(
+			NULL, "Button", "BSP",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_CENTER,
+			g_i_BUTTON_START_X + g_i_INTERVAL * 5 + g_i_BUTTON_SIZE * 5, g_i_BUTTON_START_Y + g_i_SCREEN_HEIGHT + g_i_INTERVAL + g_i_BUTTON_SIZE,
+			g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
+			hwnd, (HMENU)IDC_BUTTON_BSP,
 			GetModuleHandle(NULL), NULL
 		);
 	}
 		break;
 	case WM_COMMAND:
+#ifdef LOGIC
+		switch (LOWORD(wParam))
+		{
+		case IDC_BUTTON_0:
+		{
+			MessageBox(hwnd, "0", "0", MB_OK);
+		}
+		break;
+		}
+#endif // LOGIC
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
