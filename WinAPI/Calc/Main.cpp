@@ -102,12 +102,12 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
 		HWND hEdit = CreateWindowEx
 		(
-			NULL, "Edit", "0",
+			NULL, "Edit", "",
 			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_RIGHT,
-			10, 10,
-			400, 22,
+			g_i_START_X, g_i_START_Y,
+			g_i_SCREEN_WIDTH, g_i_SCREEN_HEIGHT,
 			hwnd,
-			(HMENU)IDC_BUTTON_0,
+			(HMENU)IDC_EDIT_DISPLAY,
 			GetModuleHandle(NULL), NULL
 		);
 	}
