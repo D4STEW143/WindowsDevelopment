@@ -128,7 +128,7 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				WS_CHILD|WS_VISIBLE,
 				BUTTON_SHIFT_X(3), BUTTON_SHIFT_Y(3-i),
 				g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
-				hwnd, (HMENU)IDC_BUTTON_PLUS + i, GetModuleHandle(NULL), NULL
+				hwnd, (HMENU)(IDC_BUTTON_PLUS + i), GetModuleHandle(NULL), NULL
 			);
 		}
 		CreateWindowEx(
@@ -160,8 +160,10 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		CONST INT SIZE = 256;
 		CHAR sz_display[SIZE]{};
 		CHAR sz_digit[2]{};
+		BOOL b_isLastCharSign = false;
 		if (LOWORD(wParam) >= IDC_BUTTON_0 && LOWORD(wParam) <= IDC_BUTTON_9)
 		{
+			b_isLastCharSign = false;
 			sz_digit[0] = LOWORD(wParam) - IDC_BUTTON_0 + '0';
 			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
 			if (strlen(sz_display) == 1 && sz_display[0] == '0')
@@ -174,12 +176,93 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			}
 			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
 		}
-		if (LOWORD(wParam) == IDC_BUTTON_POINT)
+		/*if (LOWORD(wParam) == IDC_BUTTON_POINT)
 		{
 			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
 			if (strchr(sz_display, '.'))break;
 			strcat(sz_display, ".");
 			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
+		}*/
+		switch (LOWORD(wParam))
+		{
+		case IDC_BUTTON_POINT:
+		{
+			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
+			if (strchr(sz_display, '.'))break;
+			strcat(sz_display, ".");
+			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
+		}
+		break;
+		case IDC_BUTTON_PLUS:
+		{
+			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
+			if (sz_display[SendMessage(hEditDisplay, WM_GETTEXTLENGTH, 0, 0) - 1] != '+' || b_isLastCharSign != true)
+			{
+				strcat(sz_display, "+");
+				SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
+				b_isLastCharSign = true;
+			}
+			else break;
+		}
+		break;
+		case IDC_BUTTON_MINUS:
+		{
+			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
+			if (sz_display[SendMessage(hEditDisplay, WM_GETTEXTLENGTH, 0, 0) - 1] != '-' || b_isLastCharSign != true)
+			{
+				strcat(sz_display, "-");
+				SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
+				b_isLastCharSign = true;
+			}
+			else break;
+		}
+		break;
+		case IDC_BUTTON_ASTER:
+		{
+			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
+			if (sz_display[SendMessage(hEditDisplay, WM_GETTEXTLENGTH, 0, 0) - 1] != '*')
+			{
+				strcat(sz_display, "*");
+				SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
+			}
+			else break;
+		}
+		break;
+		case IDC_BUTTON_SLASH:
+		{
+			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
+			if (sz_display[SendMessage(hEditDisplay, WM_GETTEXTLENGTH, 0, 0) - 1] != '/')
+			{
+				strcat(sz_display, "/");
+				SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
+			}
+			else break;
+		}
+		break;
+		case IDC_BUTTON_BSP:
+		{
+			CHAR sz_display_bsp[SIZE]{};
+			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
+			if (strlen(sz_display) != 0)
+			{
+				strncpy(sz_display_bsp, sz_display, SendMessage(hEditDisplay, WM_GETTEXTLENGTH, 0, 0) - 1);
+				SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display_bsp);
+			}
+			else break;
+		}
+		break;
+		case IDC_BUTTON_CLR:
+		{
+			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
+			memset(sz_display, '\0', SIZE);
+			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
+		}
+		break;
+		case IDC_BUTTON_EQUAL:
+		{
+			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
+		}
+		break;
 		}
 	}
 		break;
