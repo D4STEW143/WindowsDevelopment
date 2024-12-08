@@ -11,6 +11,7 @@ CONST CHAR* g_OPERATIONS[] = { "+", "-", "*", "/" };
 
 INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 INT GetTitleBarHeight(HWND hwnd);
+VOID SetSkin(HWND hwnd, CONST CHAR skin[]);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow)
 {
@@ -104,14 +105,17 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			}
 		}
 
-		CreateWindowEx
+		HWND hButton0 = CreateWindowEx
 		(
 			NULL, "Button", "0",
-			WS_CHILD | WS_VISIBLE,
+			WS_CHILD | WS_VISIBLE | BS_BITMAP,
 			BUTTON_SHIFT_X(0), BUTTON_SHIFT_Y(3),
 			g_i_BUTTON_DOUBLE_SIZE, g_i_BUTTON_SIZE,
 			hwnd, (HMENU)IDC_BUTTON_0, GetModuleHandle(NULL), NULL
 		);
+		HBITMAP bmpButton0 = (HBITMAP)LoadImage(NULL, "Icon\\Buttons\\Zero.bmp", IMAGE_BITMAP, g_i_BUTTON_DOUBLE_SIZE, g_i_BUTTON_SIZE, LR_LOADFROMFILE);
+		SendMessage(hButton0, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButton0);
+
 		CreateWindowEx
 		(
 			NULL, "Button", ".",
@@ -154,6 +158,7 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			g_i_BUTTON_SIZE, g_i_BUTTON_DOUBLE_SIZE,
 			hwnd, (HMENU)IDC_BUTTON_EQUAL, GetModuleHandle(NULL), NULL
 		);
+		//SetSkin(hwnd, "SquareBlue");
 	}
 	break;
 	case WM_COMMAND:
@@ -359,4 +364,9 @@ INT GetTitleBarHeight(HWND hwnd)
 
 	return titleBarHeight;
 	//return 0;
+}
+
+VOID SetSkin(HWND hwnd, CONST CHAR skin[])
+{
+
 }
