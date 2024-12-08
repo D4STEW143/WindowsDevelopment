@@ -241,21 +241,30 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		break;
 		case IDC_BUTTON_BSP:
 		{
-			CHAR sz_display_bsp[SIZE]{};
+			/*CHAR sz_display_bsp[SIZE]{};
 			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
 			if (strlen(sz_display) != 0)
 			{
 				strncpy(sz_display_bsp, sz_display, SendMessage(hEditDisplay, WM_GETTEXTLENGTH, 0, 0) - 1);
 				SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display_bsp);
 			}
+			else break;*/
+			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
+			if (strlen(sz_display) != 0)
+			{
+				sz_display[strlen(sz_display) - 1] = 0;
+				SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
+			}
 			else break;
+
 		}
 		break;
 		case IDC_BUTTON_CLR:
 		{
-			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
+			/*SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
 			memset(sz_display, '\0', SIZE);
-			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);
+			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)sz_display);*/
+			SendMessage(hEditDisplay, WM_SETTEXT, 0, (LPARAM)"0");
 		}
 		break;
 		case IDC_BUTTON_EQUAL:
@@ -263,6 +272,26 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			SendMessage(hEditDisplay, WM_GETTEXT, SIZE, (LPARAM)sz_display);
 		}
 		break;
+		}
+		SetFocus(hwnd);//для того чтобы клава работала правильно
+	}
+		break;
+	case WM_KEYDOWN:
+	{
+		if (wParam >= '0' && wParam <= '9')
+		{
+			SendMessage(hwnd, WM_COMMAND, LOWORD(wParam - '0' + IDC_BUTTON_0), 0);
+		}
+		if (wParam >= 0x60 && wParam <= 0x69)
+		{
+			SendMessage(hwnd, WM_COMMAND, LOWORD(wParam - 0x60 + IDC_BUTTON_0), 0);
+		}
+		switch (wParam)
+		{
+		case VK_BACK: SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_BSP), 0);break;
+		case VK_ESCAPE: SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_CLR), 0);break;	
+		case VK_DECIMAL:		
+		case VK_OEM_PERIOD: SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_POINT), 0);break;		
 		}
 	}
 		break;
