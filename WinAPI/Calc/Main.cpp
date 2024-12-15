@@ -6,8 +6,8 @@
 #include<cstdio>
 
 CONST CHAR g_sz_WINDOW_CLASS[] = "Calc_VPD_311";
-CONST CHAR g_sz_METAL_MISTRAL[] = "MetalMistral";
-CONST CHAR g_sz_SQUARE_BLUE[] = "SquareBlue";
+//CONST CHAR g_sz_METAL_MISTRAL[] = "MetalMistral";
+//CONST CHAR g_sz_SQUARE_BLUE[] = "SquareBlue";
 
 CONST CHAR* g_OPERATIONS[] = { "+", "-", "*", "/" };
 
@@ -160,8 +160,8 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			g_i_BUTTON_SIZE, g_i_BUTTON_DOUBLE_SIZE,
 			hwnd, (HMENU)IDC_BUTTON_EQUAL, GetModuleHandle(NULL), NULL
 		);
-		
-		SetSkin(hwnd, "SquareBlue");
+
+		SetSkin(hwnd, "square_blue");
 	}
 	break;
 	case WM_COMMAND:
@@ -178,12 +178,12 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		CHAR sz_display[SIZE]{};
 		CHAR sz_digit[2]{};
 
-		SetSkin(hwnd, "SquareBlue");
+		//SetSkin(hwnd, "SquareBlue");
 		///////////////////////////////////////Font/////////////////////////////////////////
-		HFONT hFont = CreateFont(18, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, ANSI_CHARSET,
+		/*HFONT hFont = CreateFont(18, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, ANSI_CHARSET,
 			OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
 			DEFAULT_PITCH | FF_DONTCARE, TEXT("MOSCOW2024"));
-		SendMessage(hEditDisplay, WM_SETFONT, (WPARAM)hFont, TRUE);
+		SendMessage(hEditDisplay, WM_SETFONT, (WPARAM)hFont, TRUE);*/
 		////////////////////////////////////////////////////////////////////////////////////
 
 		if (LOWORD(wParam) >= IDC_BUTTON_0 && LOWORD(wParam) <= IDC_BUTTON_9)
@@ -335,25 +335,105 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	break;
 	case WM_KEYDOWN:
 	{
-		if (wParam >= '0' && wParam <= '9')
+		if (GetKeyState(VK_SHIFT) < 0 && wParam == 0x38)
 		{
-			SendMessage(hwnd, WM_COMMAND, LOWORD(wParam - '0' + IDC_BUTTON_0), 0);
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_ASTER), BM_SETSTATE, TRUE, 0);
 		}
-		if (wParam >= 0x60 && wParam <= 0x69)
+		else if (wParam >= '0' && wParam <= '9')
 		{
-			SendMessage(hwnd, WM_COMMAND, LOWORD(wParam - 0x60 + IDC_BUTTON_0), 0);
+			SendMessage(GetDlgItem(hwnd, wParam - '0' + IDC_BUTTON_0), BM_SETSTATE, TRUE, 0);
+		}
+		else if (wParam >= 0x60 && wParam <= 0x69)
+		{
+			SendMessage(GetDlgItem(hwnd, wParam - 0x60 + IDC_BUTTON_0), BM_SETSTATE, TRUE, 0);
 		}
 		switch (wParam)
 		{
-		case VK_BACK: SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_BSP), 0);break;
-		case VK_ESCAPE: SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_CLR), 0);break;
+		case VK_OEM_PLUS:
+		case VK_ADD:		
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_PLUS), BM_SETSTATE, TRUE, 0);
+			break;
+		case VK_OEM_MINUS:
+		case VK_SUBTRACT:	
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_MINUS), BM_SETSTATE, TRUE, 0);
+			break;
+		case VK_MULTIPLY:	
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_ASTER), BM_SETSTATE, TRUE, 0);
+			break;
+		case VK_OEM_2:
+		case VK_DIVIDE:		
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_SLASH), BM_SETSTATE, TRUE, 0);
+			break;
 		case VK_DECIMAL:
-		case VK_OEM_PERIOD: SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_POINT), 0);break;
-		case VK_RBUTTON:
-		{
-			HMENU hPopUp = CreatePopupMenu();
-
+		case VK_OEM_PERIOD: 
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_POINT), BM_SETSTATE, TRUE, 0);
+			break;
+		case VK_BACK:		
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_BSP), BM_SETSTATE, TRUE, 0);
+			break;
+		case VK_ESCAPE:		
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_CLR), BM_SETSTATE, TRUE, 0);
+			break;
+		case VK_RETURN:
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_EQUAL), BM_SETSTATE, TRUE, 0);
+			break;
 		}
+	}
+	break;
+	case WM_KEYUP:
+	{
+		if (GetKeyState(VK_SHIFT) < 0 && wParam == 0x38)
+		{
+			SendMessage(hwnd, WM_COMMAND, IDC_BUTTON_ASTER, 0);
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_ASTER), BM_SETSTATE, FALSE, 0);
+		}
+		else if (wParam >= '0' && wParam <= '9')
+		{
+			SendMessage(hwnd, WM_COMMAND, LOWORD(wParam - '0' + IDC_BUTTON_0), 0);
+			SendMessage(GetDlgItem(hwnd, wParam - '0' + IDC_BUTTON_0), BM_SETSTATE, FALSE, 0);
+		}
+		else if (wParam >= 0x60 && wParam <= 0x69)
+		{
+			SendMessage(hwnd, WM_COMMAND, LOWORD(wParam - 0x60 + IDC_BUTTON_0), 0);
+			SendMessage(GetDlgItem(hwnd, wParam - 0x60 + IDC_BUTTON_0), BM_SETSTATE, FALSE, 0);
+		}
+		switch (wParam)
+		{
+		case VK_OEM_PLUS:
+		case VK_ADD:		
+			SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_PLUS), 0);
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_PLUS), BM_SETSTATE, FALSE, 0);
+			break;
+		case VK_OEM_MINUS:
+		case VK_SUBTRACT:	
+			SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_MINUS), 0);
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_MINUS), BM_SETSTATE, FALSE, 0);
+			break;
+		case VK_MULTIPLY:	
+			SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_ASTER), 0);
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_ASTER), BM_SETSTATE, FALSE, 0);
+			break;
+		case VK_OEM_2:
+		case VK_DIVIDE:		
+			SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_SLASH), 0);
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_SLASH), BM_SETSTATE, FALSE, 0);
+			break;
+		case VK_DECIMAL:
+		case VK_OEM_PERIOD: 
+			SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_POINT), 0);
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_POINT), BM_SETSTATE, FALSE, 0);
+			break;
+		case VK_BACK:		
+			SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_BSP), 0);
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_BSP), BM_SETSTATE, FALSE, 0);
+			break;
+		case VK_ESCAPE:		
+			SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_CLR), 0);
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_CLR), BM_SETSTATE, FALSE, 0);
+			break;
+		case VK_RETURN:
+			SendMessage(hwnd, WM_COMMAND, LOWORD(IDC_BUTTON_EQUAL), 0);
+			SendMessage(GetDlgItem(hwnd, IDC_BUTTON_EQUAL), BM_SETSTATE, FALSE, 0);
 			break;
 		}
 	}
@@ -382,30 +462,66 @@ INT GetTitleBarHeight(HWND hwnd)
 	//return 0;
 }
 
+CONST CHAR* g_BUTTONS[] =
+{
+	"button_0.bmp",
+	"button_1.bmp",
+	"button_2.bmp",
+	"button_3.bmp",
+	"button_4.bmp",
+	"button_5.bmp",
+	"button_6.bmp",
+	"button_7.bmp",
+	"button_8.bmp",
+	"button_9.bmp",
+	"button_point.bmp",
+	"button_plus.bmp",
+	"button_minus.bmp",
+	"button_aster.bmp",
+	"button_slash.bmp",
+	"button_bsp.bmp",
+	"button_clr.bmp",
+	"button_equal.bmp",
+};
+
 VOID SetSkin(HWND hwnd, CONST CHAR skin[])
 {
-	CHAR sz_route[] = "Icon\\Buttons\\square_blue\\button_%i.bmp";
-	CHAR sz_buffer[256]{};
-	HWND hEditDisplay = GetDlgItem(hwnd, IDC_EDIT_DISPLAY);
+	//CHAR sz_route[] = "Icon\\Buttons\\square_blue\\button_%i.bmp";
+	//CHAR sz_buffer[256]{};
+	//HWND hEditDisplay = GetDlgItem(hwnd, IDC_EDIT_DISPLAY);
 
-	//Zero
-	sprintf(sz_buffer, sz_route, 0);
-	HBITMAP bmpButton0 = (HBITMAP)LoadImage(NULL, sz_buffer, IMAGE_BITMAP, g_i_BUTTON_DOUBLE_SIZE, g_i_BUTTON_SIZE, LR_LOADFROMFILE);
-	SendMessage(GetDlgItem(hwnd, IDC_BUTTON_0), BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButton0);
+	////Zero
+	//sprintf(sz_buffer, sz_route, 0);
+	//HBITMAP bmpButton0 = (HBITMAP)LoadImage(NULL, sz_buffer, IMAGE_BITMAP, g_i_BUTTON_DOUBLE_SIZE, g_i_BUTTON_SIZE, LR_LOADFROMFILE);
+	//SendMessage(GetDlgItem(hwnd, IDC_BUTTON_0), BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButton0);
 
-	//Digits & Operators
-	for (int i = 1; i < 17; i++)
+	////Digits & Operators
+	//for (int i = 1; i < 17; i++)
+	//{
+	//	HWND Button = GetDlgItem(hwnd, IDC_BUTTON_0 + i);
+	//	sprintf(sz_buffer, sz_route, i);
+	//	HBITMAP bmpButton = (HBITMAP)LoadImage(NULL, sz_buffer, IMAGE_BITMAP, g_i_BUTTON_SIZE, g_i_BUTTON_SIZE, LR_LOADFROMFILE);
+	//	SendMessage(Button, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButton);
+	//}
+
+	////Equal
+	//sprintf(sz_buffer, sz_route, 17);
+	//HBITMAP bmpButtonEqual = (HBITMAP)LoadImage(NULL, sz_buffer, IMAGE_BITMAP, g_i_BUTTON_SIZE, g_i_BUTTON_DOUBLE_SIZE, LR_LOADFROMFILE);
+	//SendMessage(GetDlgItem(hwnd, IDC_BUTTON_EQUAL), BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButtonEqual);
+
+	CHAR sz_filename[MAX_PATH]{};
+	for (int i = IDC_BUTTON_0; i <= IDC_BUTTON_EQUAL; i++)
 	{
-		HWND Button = GetDlgItem(hwnd, IDC_BUTTON_0 + i);
-		sprintf(sz_buffer, sz_route, i);
-		HBITMAP bmpButton = (HBITMAP)LoadImage(NULL, sz_buffer, IMAGE_BITMAP, g_i_BUTTON_SIZE, g_i_BUTTON_SIZE, LR_LOADFROMFILE);
-		SendMessage(Button, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButton);
+		HWND hButton = GetDlgItem(hwnd, i);
+		sprintf(sz_filename, "Icon\\Buttons\\%s\\%s", skin, g_BUTTONS[i - IDC_BUTTON_0]);
+		HBITMAP bmpButton = (HBITMAP)LoadImage(
+			NULL,
+			sz_filename,
+			IMAGE_BITMAP,
+			i == IDC_BUTTON_0 ? g_i_BUTTON_DOUBLE_SIZE : g_i_BUTTON_SIZE,
+			i == IDC_BUTTON_EQUAL ? g_i_BUTTON_DOUBLE_SIZE : g_i_BUTTON_SIZE,
+			LR_LOADFROMFILE
+		);
+		SendMessage(hButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButton);
 	}
-
-	//Equal
-	sprintf(sz_buffer, sz_route, 17);
-	HBITMAP bmpButtonEqual = (HBITMAP)LoadImage(NULL, sz_buffer, IMAGE_BITMAP, g_i_BUTTON_SIZE, g_i_BUTTON_DOUBLE_SIZE, LR_LOADFROMFILE);
-	SendMessage(GetDlgItem(hwnd, IDC_BUTTON_EQUAL), BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButtonEqual);
-
-
 }
