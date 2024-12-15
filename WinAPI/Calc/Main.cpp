@@ -3,6 +3,7 @@
 #include <float.h>
 #include "resource.h"
 #include "Dimentions.h"
+#include "Skins.h"
 #include<cstdio>
 
 CONST CHAR g_sz_WINDOW_CLASS[] = "Calc_VPD_311";
@@ -10,6 +11,8 @@ CONST CHAR g_sz_WINDOW_CLASS[] = "Calc_VPD_311";
 //CONST CHAR g_sz_SQUARE_BLUE[] = "SquareBlue";
 
 CONST CHAR* g_OPERATIONS[] = { "+", "-", "*", "/" };
+
+
 
 INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 INT GetTitleBarHeight(HWND hwnd);
@@ -72,6 +75,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 
 INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
+	static INT index = 0;
 	switch (uMsg)
 	{
 	case WM_CREATE:
@@ -162,6 +166,21 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		);
 
 		SetSkin(hwnd, "square_blue");
+	}
+	break;
+	case WM_CTLCOLOREDIT:
+	{
+		HDC hdcEdit = (HDC)wParam;
+		//SetBkMode(hdcEdit, OPAQUE);
+		SetBkColor(hdcEdit, g_DISPLAY_BACKGROUND_COLOR[index]);
+		SetTextColor(hdcEdit, g_DISPLAY_FOREGROUND_COLOR[index]);
+
+		HBRUSH hbrBackground = CreateSolidBrush(g_WINDIW_BACKGROUND_COLOR[index]);
+		SetClassLongPtr(hwnd, GCLP_HBRBACKGROUND, (LONG)hbrBackground);
+		SendMessage(hwnd, WM_ERASEBKGND, wParam, 0);
+		//SetSkin(hwnd, "square_blue");
+		RedrawWindow(hwnd, NULL, NULL, RDW_ERASE);
+		return (LRESULT)hbrBackground;
 	}
 	break;
 	case WM_COMMAND:
@@ -450,13 +469,22 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDR_SQUARE_BLUE, "Square Blue");
 
 		//3)Открыть меню
-		switch (TrackPopupMenu(hMenu, TPM_RIGHTALIGN | TPM_BOTTOMALIGN | TPM_RETURNCMD, LOWORD(lParam), HIWORD(lParam), 0, hwnd, NULL))
+		DWORD item = TrackPopupMenu(hMenu, TPM_RIGHTALIGN | TPM_BOTTOMALIGN | TPM_RETURNCMD, LOWORD(lParam), HIWORD(lParam), 0, hwnd, NULL);
+		switch (item)
 		{
-		case IDR_SQUARE_BLUE:	SetSkin(hwnd, "square_blue");		break;
-		case IDR_METAL_MISTRAL:	SetSkin(hwnd, "metal_mistral");		break;
+		case IDR_SQUARE_BLUE:	//index = IDR_SQUARE_BLUE;		break;
+		case IDR_METAL_MISTRAL:	//SetSkin(hwnd, "metal_mistral");		break;
+			index = item - IDR_SQUARE_BLUE;
+			break;
 		case IDR_EXIT:			SendMessage(hwnd, WM_CLOSE, 0, 0);	break;
 		}
 
+		HWND hEditDisplay = GetDlgItem(hwnd, IDC_EDIT_DISPLAY);
+		HDC hdcDisplay = GetDC(hEditDisplay);
+		SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)hdcDisplay, 0);
+		ReleaseDC(hEditDisplay,hdcDisplay);
+		SetSkin(hwnd, g_SKIN[index]);
+		SetFocus(hEditDisplay);
 		//4)Удаляем меню
 		DestroyMenu(hMenu);
 	}
