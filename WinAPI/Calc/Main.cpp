@@ -17,6 +17,7 @@ CONST CHAR* g_OPERATIONS[] = { "+", "-", "*", "/" };
 INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 INT GetTitleBarHeight(HWND hwnd);
 VOID SetSkin(HWND hwnd, CONST CHAR skin[]);
+VOID SetFonts(HWND hwnd, CONST CHAR fonts[]);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow)
 {
@@ -76,6 +77,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	static INT index = 0;
+	static INT font_index = 0;
 	switch (uMsg)
 	{
 	case WM_CREATE:
@@ -92,16 +94,17 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		);
 
 		AddFontResource("Fonts\\MOSCOW2024.otf");
+
 		HFONT hFont = CreateFont
 		(
-			g_i_FONT_HEIGHT, g_i_FONT_WIDTH, 
-			0, 0, 
-			FW_MEDIUM, 0, 0, 0, 
+			g_i_FONT_HEIGHT, g_i_FONT_WIDTH,
+			0, 0,
+			FW_MEDIUM, 0, 0, 0,
 			ANSI_CHARSET,
-			OUT_CHARACTER_PRECIS, 
-			CLIP_CHARACTER_PRECIS, 
+			OUT_CHARACTER_PRECIS,
+			CLIP_CHARACTER_PRECIS,
 			ANTIALIASED_QUALITY,
-			FF_DONTCARE, 
+			FF_DONTCARE,
 			"MOSCOW2024"
 		);
 		SendMessage(hEdit, WM_SETFONT, (WPARAM)hFont, TRUE);
@@ -474,15 +477,22 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	break;
 	case WM_CONTEXTMENU:
 	{
+		HWND hEditDisplay = GetDlgItem(hwnd, IDC_EDIT_DISPLAY);
+		HDC hdcDisplay = GetDC(hEditDisplay);
+
 		//1)создаем всплывающее меню
 		HMENU hMenu = CreatePopupMenu();
 
 		//2)добавляем пункты в это меню
 		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING, IDR_EXIT, "Exit");
 		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_SEPARATOR, 0, NULL);
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING | MF_UNCHECKED, IDR_FONT_THECAPT, "The Capt");
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING | MF_UNCHECKED, IDR_FONT_MOSCOW, "Moscow2024");
+		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_SEPARATOR, 0, NULL);
 		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING | MF_UNCHECKED, IDR_METAL_MISTRAL, "Metal Mistral");
 		InsertMenu(hMenu, 0, MF_BYPOSITION | MF_STRING | MF_UNCHECKED, IDR_SQUARE_BLUE, "Square Blue");
 		CheckMenuItem(hMenu, index, MF_BYPOSITION | MF_CHECKED);
+		CheckMenuItem(hMenu, font_index + 3, MF_BYPOSITION | MF_CHECKED);
 
 		//3)Открыть меню
 		DWORD item = TrackPopupMenu(hMenu, TPM_RIGHTALIGN | TPM_BOTTOMALIGN | TPM_RETURNCMD, LOWORD(lParam), HIWORD(lParam), 0, hwnd, NULL);
@@ -492,14 +502,17 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case IDR_METAL_MISTRAL:	//SetSkin(hwnd, "metal_mistral");		break;
 			index = item - IDR_SQUARE_BLUE;
 			break;
-		case IDR_EXIT:			SendMessage(hwnd, WM_CLOSE, 0, 0);	break;
+		case IDR_FONT_MOSCOW:
+		case IDR_FONT_THECAPT:
+			font_index = item - IDR_FONT_MOSCOW;
+			break;
+		case IDR_EXIT: SendMessage(hwnd, WM_CLOSE, 0, 0);	break;
 		}
 
-		HWND hEditDisplay = GetDlgItem(hwnd, IDC_EDIT_DISPLAY);
-		HDC hdcDisplay = GetDC(hEditDisplay);
 		SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)hdcDisplay, 0);
-		ReleaseDC(hEditDisplay,hdcDisplay);
+		ReleaseDC(hEditDisplay, hdcDisplay);
 		SetSkin(hwnd, g_SKIN[index]);
+		SetFonts(hwnd, g_FONT[font_index]);
 		SetFocus(hEditDisplay);
 		//4)Удаляем меню
 		DestroyMenu(hMenu);
@@ -555,12 +568,10 @@ VOID SetSkin(HWND hwnd, CONST CHAR skin[])
 	//CHAR sz_route[] = "Icon\\Buttons\\square_blue\\button_%i.bmp";
 	//CHAR sz_buffer[256]{};
 	//HWND hEditDisplay = GetDlgItem(hwnd, IDC_EDIT_DISPLAY);
-
 	////Zero
 	//sprintf(sz_buffer, sz_route, 0);
 	//HBITMAP bmpButton0 = (HBITMAP)LoadImage(NULL, sz_buffer, IMAGE_BITMAP, g_i_BUTTON_DOUBLE_SIZE, g_i_BUTTON_SIZE, LR_LOADFROMFILE);
 	//SendMessage(GetDlgItem(hwnd, IDC_BUTTON_0), BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButton0);
-
 	////Digits & Operators
 	//for (int i = 1; i < 17; i++)
 	//{
@@ -569,7 +580,6 @@ VOID SetSkin(HWND hwnd, CONST CHAR skin[])
 	//	HBITMAP bmpButton = (HBITMAP)LoadImage(NULL, sz_buffer, IMAGE_BITMAP, g_i_BUTTON_SIZE, g_i_BUTTON_SIZE, LR_LOADFROMFILE);
 	//	SendMessage(Button, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButton);
 	//}
-
 	////Equal
 	//sprintf(sz_buffer, sz_route, 17);
 	//HBITMAP bmpButtonEqual = (HBITMAP)LoadImage(NULL, sz_buffer, IMAGE_BITMAP, g_i_BUTTON_SIZE, g_i_BUTTON_DOUBLE_SIZE, LR_LOADFROMFILE);
@@ -590,4 +600,26 @@ VOID SetSkin(HWND hwnd, CONST CHAR skin[])
 		);
 		SendMessage(hButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButton);
 	}
+}
+
+VOID SetFonts(HWND hwnd, CONST CHAR fonts[])
+{
+	HWND hEdit = GetDlgItem(hwnd, IDC_EDIT_DISPLAY);
+	AddFontResource("Fonts\\MOSCOW2024.otf");
+	AddFontResource("Fonts\\thecapt.otf");
+	CHAR sz_filename[MAX_PATH]{};
+	sprintf(sz_filename, "%s", fonts);
+	HFONT hFont = CreateFont
+	(
+		g_i_FONT_HEIGHT, g_i_FONT_WIDTH,
+		0, 0,
+		FW_MEDIUM, 0, 0, 0,
+		ANSI_CHARSET,
+		OUT_CHARACTER_PRECIS,
+		CLIP_CHARACTER_PRECIS,
+		ANTIALIASED_QUALITY,
+		FF_DONTCARE,
+		sz_filename
+	);
+	SendMessage(hEdit, WM_SETFONT, (WPARAM)hFont, TRUE);
 }

@@ -6,6 +6,8 @@
 
 #define IDR_SQUARE_BLUE			201
 #define IDR_METAL_MISTRAL		202
+#define IDR_FONT_MOSCOW			203
+#define IDR_FONT_THECAPT		204
 #define IDR_EXIT				299
 
 #define IDC_EDIT_DISPLAY		999
