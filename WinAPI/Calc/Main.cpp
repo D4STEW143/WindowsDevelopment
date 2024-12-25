@@ -12,12 +12,11 @@ CONST CHAR g_sz_WINDOW_CLASS[] = "Calc_VPD_311";
 
 CONST CHAR* g_OPERATIONS[] = { "+", "-", "*", "/" };
 
-
-
 INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 INT GetTitleBarHeight(HWND hwnd);
 VOID SetSkin(HWND hwnd, CONST CHAR skin[]);
 VOID SetFonts(HWND hwnd, CONST CHAR fonts[]);
+VOID SetSkinFromDLL(HWND hwnd, CONST CHAR skin[]);
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow)
 {
@@ -183,7 +182,7 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			hwnd, (HMENU)IDC_BUTTON_EQUAL, GetModuleHandle(NULL), NULL
 		);
 
-		SetSkin(hwnd, "square_blue");
+		SetSkinFromDLL(hwnd, "square_blue.dll");
 	}
 	break;
 	case WM_CTLCOLOREDIT:
@@ -511,7 +510,7 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)hdcDisplay, 0);
 		ReleaseDC(hEditDisplay, hdcDisplay);
-		SetSkin(hwnd, g_SKIN[index]);
+		SetSkinFromDLL(hwnd, g_SKIN[index]);
 		SetFonts(hwnd, g_FONT[font_index]);
 		SetFocus(hEditDisplay);
 		//4)Удаляем меню
@@ -622,4 +621,25 @@ VOID SetFonts(HWND hwnd, CONST CHAR fonts[])
 		sz_filename
 	);
 	SendMessage(hEdit, WM_SETFONT, (WPARAM)hFont, TRUE);
+}
+
+VOID SetSkinFromDLL(HWND hwnd, CONST CHAR skin[])
+{
+	HMODULE hModule = LoadLibrary(skin);
+	for (int i = IDC_BUTTON_0; i <= IDC_BUTTON_EQUAL; i++)
+	{
+		HWND hButton = GetDlgItem(hwnd, i);
+		HBITMAP bmpButton = (HBITMAP)LoadImage
+		(
+			hModule,
+			MAKEINTRESOURCE(i),
+			IMAGE_BITMAP,
+			i == IDC_BUTTON_0 ? g_i_BUTTON_DOUBLE_SIZE : g_i_BUTTON_SIZE,
+			i == IDC_BUTTON_EQUAL ? g_i_BUTTON_DOUBLE_SIZE : g_i_BUTTON_SIZE,
+			LR_SHARED // с NULL тоже работает
+		);
+		SendMessage(hButton, BM_SETIMAGE, IMAGE_BITMAP, (LPARAM)bmpButton);
+		//IMAGE_BITMAP можно не указывать, а оставить NULL
+	}
+	FreeLibrary(hModule);
 }
