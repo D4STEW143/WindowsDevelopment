@@ -16,10 +16,11 @@ CONST CHAR* g_OPERATIONS[] = { "+", "-", "*", "/" };
 INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 INT GetTitleBarHeight(HWND hwnd);
 VOID SetSkin(HWND hwnd, CONST CHAR skin[]);
-VOID SetFonts(HWND hwnd, CONST CHAR fonts[]);
+VOID SetFonts(HWND hwnd, CONST CHAR font_name[]);
 VOID SetSkinFromDLL(HWND hwnd, CONST CHAR skin[]);
 VOID LoadFontFromDLL(HMODULE hFontModule, INT resourceID);
 VOID LoadFontsFromDLL(HMODULE hFontModule);
+
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, INT nCmdShow)
 {
@@ -79,7 +80,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	static INT index = 0;
-	static INT font_index = 1750;
+	static INT font_index = 0;
 	static HMODULE hFontsModule = NULL;
 	switch (uMsg)
 	{
@@ -104,21 +105,9 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		DWORD len = SizeofResource(hFontsModule, hFntRes);
 		AddFontMemResourceEx(fntData, len, NULL, &nFonts);
 		AddFontResource("Fonts\\MOSCOW2024.otf");*/
+	
 		LoadFontsFromDLL(hFontsModule);
-		HFONT hFont = CreateFont
-		(
-			g_i_FONT_HEIGHT, g_i_FONT_WIDTH,
-			0, 0,
-			FW_MEDIUM, 0, 0, 0,
-			ANSI_CHARSET,
-			OUT_CHARACTER_PRECIS,
-			CLIP_CHARACTER_PRECIS,
-			ANTIALIASED_QUALITY,
-			FF_DONTCARE,
-			g_FONT_NAMES[0]
-		);
-
-		SendMessage(hEdit, WM_SETFONT, (WPARAM)hFont, TRUE);
+		SetFonts(hwnd, g_FONT_NAMES[index]);
 
 		CHAR sz_digit[2]{};
 		for (int i = 6; i >= 0; i -= 3)
@@ -512,27 +501,31 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 		//CheckMenuItem(hMenu, index, MF_BYPOSITION | MF_CHECKED);
 		CheckMenuItem(hMenuSkins, index, MF_BYPOSITION | MF_CHECKED);
-		//CheckMenuItem(hMenuFonts, font_index, MF_BYPOSITION | MF_CHECKED);
+		CheckMenuItem(hMenuFonts, font_index, MF_BYPOSITION | MF_CHECKED);
 
 		//3)Открыть меню
 		DWORD item = TrackPopupMenu(hMenu, TPM_RIGHTALIGN | TPM_BOTTOMALIGN | TPM_RETURNCMD, LOWORD(lParam), HIWORD(lParam), 0, hwnd, NULL);
 		switch (item)
 		{
+			//skins
 		case IDR_SQUARE_BLUE:	//index = IDR_SQUARE_BLUE;		break;
 		case IDR_METAL_MISTRAL:	//SetSkin(hwnd, "metal_mistral");		break;
 			index = item - IDR_SQUARE_BLUE;
 			break;
-		case IDR_DIGITAL_7:
+			//fonts
+		case IDR_DIGITAL_7:	
 		case IDR_TERMINATOR:
 		case IDR_MOSCOW_2024:
-			font_index += IDR_DIGITAL_7;
+			font_index = item - IDR_FONTS - 1;
+			break;
 		case IDR_EXIT: SendMessage(hwnd, WM_CLOSE, 0, 0);	break;
 		}
 
 		SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)hdcDisplay, 0);
 		ReleaseDC(hEditDisplay, hdcDisplay);
 		SetSkinFromDLL(hwnd, g_SKIN[index]);
-		LoadFontFromDLL(hFontsModule, font_index);
+		SetFonts(hwnd, g_FONT_NAMES[font_index]);
+		//LoadFontFromDLL(hFontsModule, font_index);
 		SetFocus(hEditDisplay);
 		//4)Удаляем меню
 		DestroyMenu(hMenu);
@@ -626,13 +619,9 @@ VOID SetSkin(HWND hwnd, CONST CHAR skin[])
 	}
 }
 
-VOID SetFonts(HWND hwnd, CONST CHAR fonts[])
+VOID SetFonts(HWND hwnd, CONST CHAR font_name[])
 {
 	HWND hEdit = GetDlgItem(hwnd, IDC_EDIT_DISPLAY);
-	AddFontResource("Fonts\\MOSCOW2024.otf");
-	AddFontResource("Fonts\\thecapt.otf");
-	CHAR sz_filename[MAX_PATH]{};
-	sprintf(sz_filename, "%s", fonts);
 	HFONT hFont = CreateFont
 	(
 		g_i_FONT_HEIGHT, g_i_FONT_WIDTH,
@@ -643,9 +632,11 @@ VOID SetFonts(HWND hwnd, CONST CHAR fonts[])
 		CLIP_CHARACTER_PRECIS,
 		ANTIALIASED_QUALITY,
 		FF_DONTCARE,
-		sz_filename
+		font_name
 	);
+
 	SendMessage(hEdit, WM_SETFONT, (WPARAM)hFont, TRUE);
+
 }
 
 VOID SetSkinFromDLL(HWND hwnd, CONST CHAR skin[])
