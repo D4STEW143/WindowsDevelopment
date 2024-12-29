@@ -79,7 +79,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	static INT index = 0;
-	static INT font_index = 0;
+	static INT font_index = 1750;
 	static HMODULE hFontsModule = NULL;
 	switch (uMsg)
 	{
@@ -522,21 +522,27 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		case IDR_METAL_MISTRAL:	//SetSkin(hwnd, "metal_mistral");		break;
 			index = item - IDR_SQUARE_BLUE;
 			break;
+		case IDR_DIGITAL_7:
+		case IDR_TERMINATOR:
+		case IDR_MOSCOW_2024:
+			font_index += IDR_DIGITAL_7;
 		case IDR_EXIT: SendMessage(hwnd, WM_CLOSE, 0, 0);	break;
 		}
 
 		SendMessage(hwnd, WM_CTLCOLOREDIT, (WPARAM)hdcDisplay, 0);
 		ReleaseDC(hEditDisplay, hdcDisplay);
 		SetSkinFromDLL(hwnd, g_SKIN[index]);
-		SetFonts(hwnd, g_FONT[font_index]);
+		LoadFontFromDLL(hFontsModule, font_index);
 		SetFocus(hEditDisplay);
 		//4)Удаляем меню
 		DestroyMenu(hMenu);
+		DestroyMenu(hMenuSkins);
+		DestroyMenu(hMenuFonts);
 	}
 	break;
 	case WM_DESTROY:
 		FreeLibrary(hFontsModule);
-		
+		//RemoveFontMemResourceEx(hFo)
 		PostQuitMessage(0);
 		break;
 	case WM_CLOSE:
