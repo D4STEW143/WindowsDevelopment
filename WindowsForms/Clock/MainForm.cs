@@ -54,5 +54,54 @@ namespace Clock
 			SetVisibility(true);
 		}
 
+		//////////////////////////////Topmost////////////////////////////////
+		private void toolStripMenuITemTopmost_CheckedChanged(object sender, EventArgs e)
+		{
+			if(toolStripMenuITemTopmost.Checked) TopMost = true;
+			else TopMost = false;
+		}
+		/////////////////////////////////////////////////////////////////////
+
+		//////////////////////////////Show controls//////////////////////////
+		private void toolStripMenuItemShowControls_CheckedChanged(object sender, EventArgs e)
+		{
+			if(!toolStripMenuItemShowControls.Checked) SetVisibility(false);
+			else SetVisibility(true);
+		}
+		/////////////////////////////////////////////////////////////////////
+
+		//////////////////////////////Show date//////////////////////////////
+		private void checkBoxShowDate_CheckStateChanged(object sender, EventArgs e)
+		{
+			if (checkBoxShowDate.Checked) toolStripMenuItemShowDate.Checked = true;
+			else toolStripMenuItemShowDate.Checked = false;
+		}
+
+		private void toolStripMenuItemShowDate_CheckStateChanged(object sender, EventArgs e)
+		{
+			switch(toolStripMenuItemShowDate.Checked)
+			{
+				case true:		checkBoxShowDate.Checked = true; break;
+				case false:		checkBoxShowDate.Checked = false; break;
+			}
+		}
+		/////////////////////////////////////////////////////////////////////
+
+		////////////////////////////Show weekday/////////////////////////////
+		private void checkBoxShowWeekday_CheckStateChanged(object sender, EventArgs e)
+		{
+			if(checkBoxShowWeekday.Checked) toolStripMenuItemShowWeekday.Checked = true;
+			else toolStripMenuItemShowWeekday.Checked= false;
+		}
+
+		private void toolStripMenuItemShowWeekday_CheckStateChanged(object sender, EventArgs e)
+		{
+			switch (toolStripMenuItemShowWeekday.Checked)
+			{
+				case true:		checkBoxShowWeekday.Checked = true; break;
+				case false :	checkBoxShowWeekday.Checked = false; break;
+			}
+		}
+		/////////////////////////////////////////////////////////////////////
 	}
 }
