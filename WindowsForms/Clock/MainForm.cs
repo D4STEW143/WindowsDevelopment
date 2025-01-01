@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows.Forms;	
 
 namespace Clock
 {
 	public partial class MainForm : Form
 	{
+		static int onLoadFontID = 1;
 		public MainForm()
 		{
 			InitializeComponent();
 			labelTime.BackColor = Color.AliceBlue;
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
+			PrivateFontCollection userFontCollection = LoadFont();
+			SetFont(userFontCollection,onLoadFontID);
+			CheckFont(userFontCollection);
 		}
 
 		void SetVisibility(bool visible)
@@ -27,6 +32,31 @@ namespace Clock
 			this.FormBorderStyle = visible ? FormBorderStyle.FixedDialog : FormBorderStyle.None;
 			this.ShowInTaskbar = visible;
 			this.TransparencyKey = visible ? Color.Empty : this.BackColor;
+		}
+
+		PrivateFontCollection LoadFont()
+		{
+			PrivateFontCollection fontCollection = new PrivateFontCollection();
+			fontCollection.AddFontFile("Fonts\\MOSCOW2024.otf");
+			fontCollection.AddFontFile("Fonts\\thecapt.otf");
+			return fontCollection;
+		}
+
+		void SetFont(PrivateFontCollection fontCollection, int fontID)
+		{
+			labelTime.Font = new Font(fontCollection.Families[fontID], 32f);
+		}
+
+		void CheckFont(PrivateFontCollection fontCollection)
+		{
+			if (fontCollection.Families[onLoadFontID].Name == fontCollection.Families[0].Name)
+			{
+				moscowToolStripMenuItem.Checked = true;
+			}
+			else if (fontCollection.Families[onLoadFontID].Name == fontCollection.Families[1].Name)
+			{
+				theCaptToolStripMenuItem.Checked = true;
+			}
 		}
 
 		private void timer_Tick(object sender, EventArgs e)
@@ -102,6 +132,21 @@ namespace Clock
 				case false :	checkBoxShowWeekday.Checked = false; break;
 			}
 		}
+
 		/////////////////////////////////////////////////////////////////////
+
+		////////////////////////////Choose font//////////////////////////////
+		private void moscowToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			
+		}
+
+
+
+		/////////////////////////////////////////////////////////////////////
+
+
+
+
 	}
 }
