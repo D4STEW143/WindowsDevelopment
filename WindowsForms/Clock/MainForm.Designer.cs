@@ -63,7 +63,7 @@
 			this.labelTime.Font = new System.Drawing.Font("Arial Narrow", 32.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.labelTime.Location = new System.Drawing.Point(12, 9);
 			this.labelTime.Name = "labelTime";
-			this.labelTime.Size = new System.Drawing.Size(126, 64);
+			this.labelTime.Size = new System.Drawing.Size(101, 52);
 			this.labelTime.TabIndex = 0;
 			this.labelTime.Text = "Time";
 			this.labelTime.DoubleClick += new System.EventHandler(this.labelTime_DoubleClick);
@@ -85,13 +85,13 @@
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(254, 264);
+			this.contextMenuStrip.Size = new System.Drawing.Size(214, 204);
 			// 
 			// toolStripMenuITemTopmost
 			// 
 			this.toolStripMenuITemTopmost.CheckOnClick = true;
 			this.toolStripMenuITemTopmost.Name = "toolStripMenuITemTopmost";
-			this.toolStripMenuITemTopmost.Size = new System.Drawing.Size(253, 26);
+			this.toolStripMenuITemTopmost.Size = new System.Drawing.Size(213, 22);
 			this.toolStripMenuITemTopmost.Text = "Topmost";
 			this.toolStripMenuITemTopmost.CheckedChanged += new System.EventHandler(this.toolStripMenuITemTopmost_CheckedChanged);
 			// 
@@ -101,20 +101,20 @@
 			this.toolStripMenuItemShowControls.CheckOnClick = true;
 			this.toolStripMenuItemShowControls.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.toolStripMenuItemShowControls.Name = "toolStripMenuItemShowControls";
-			this.toolStripMenuItemShowControls.Size = new System.Drawing.Size(253, 26);
+			this.toolStripMenuItemShowControls.Size = new System.Drawing.Size(213, 22);
 			this.toolStripMenuItemShowControls.Text = "Show controls";
 			this.toolStripMenuItemShowControls.CheckedChanged += new System.EventHandler(this.toolStripMenuItemShowControls_CheckedChanged);
 			// 
 			// toolStripSeparator4
 			// 
 			this.toolStripSeparator4.Name = "toolStripSeparator4";
-			this.toolStripSeparator4.Size = new System.Drawing.Size(250, 6);
+			this.toolStripSeparator4.Size = new System.Drawing.Size(210, 6);
 			// 
 			// toolStripMenuItemShowDate
 			// 
 			this.toolStripMenuItemShowDate.CheckOnClick = true;
 			this.toolStripMenuItemShowDate.Name = "toolStripMenuItemShowDate";
-			this.toolStripMenuItemShowDate.Size = new System.Drawing.Size(253, 26);
+			this.toolStripMenuItemShowDate.Size = new System.Drawing.Size(213, 22);
 			this.toolStripMenuItemShowDate.Text = "Show date";
 			this.toolStripMenuItemShowDate.CheckStateChanged += new System.EventHandler(this.toolStripMenuItemShowDate_CheckStateChanged);
 			// 
@@ -122,14 +122,14 @@
 			// 
 			this.toolStripMenuItemShowWeekday.CheckOnClick = true;
 			this.toolStripMenuItemShowWeekday.Name = "toolStripMenuItemShowWeekday";
-			this.toolStripMenuItemShowWeekday.Size = new System.Drawing.Size(253, 26);
+			this.toolStripMenuItemShowWeekday.Size = new System.Drawing.Size(213, 22);
 			this.toolStripMenuItemShowWeekday.Text = "Show weekday";
 			this.toolStripMenuItemShowWeekday.CheckStateChanged += new System.EventHandler(this.toolStripMenuItemShowWeekday_CheckStateChanged);
 			// 
 			// toolStripSeparator5
 			// 
 			this.toolStripSeparator5.Name = "toolStripSeparator5";
-			this.toolStripSeparator5.Size = new System.Drawing.Size(250, 6);
+			this.toolStripSeparator5.Size = new System.Drawing.Size(210, 6);
 			// 
 			// toolStripMenuItemChooseFont
 			// 
@@ -137,21 +137,24 @@
             this.moscowToolStripMenuItem,
             this.theCaptToolStripMenuItem});
 			this.toolStripMenuItemChooseFont.Name = "toolStripMenuItemChooseFont";
-			this.toolStripMenuItemChooseFont.Size = new System.Drawing.Size(253, 26);
+			this.toolStripMenuItemChooseFont.Size = new System.Drawing.Size(213, 22);
 			this.toolStripMenuItemChooseFont.Text = "Choose font";
 			// 
 			// moscowToolStripMenuItem
 			// 
 			this.moscowToolStripMenuItem.Name = "moscowToolStripMenuItem";
-			this.moscowToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+			this.moscowToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
 			this.moscowToolStripMenuItem.Text = "Moscow";
+			this.moscowToolStripMenuItem.CheckedChanged += new System.EventHandler(this.moscowToolStripMenuItem_CheckedChanged);
 			this.moscowToolStripMenuItem.Click += new System.EventHandler(this.moscowToolStripMenuItem_Click);
 			// 
 			// theCaptToolStripMenuItem
 			// 
 			this.theCaptToolStripMenuItem.Name = "theCaptToolStripMenuItem";
-			this.theCaptToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+			this.theCaptToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
 			this.theCaptToolStripMenuItem.Text = "The capt";
+			this.theCaptToolStripMenuItem.CheckedChanged += new System.EventHandler(this.theCaptToolStripMenuItem_CheckedChanged);
+			this.theCaptToolStripMenuItem.Click += new System.EventHandler(this.theCaptToolStripMenuItem_Click);
 			// 
 			// colorsToolStripMenuItem
 			// 
@@ -159,43 +162,47 @@
             this.toolStripMenuItemBackgroundColor,
             this.toolStripMenuItemForegroundColor});
 			this.colorsToolStripMenuItem.Name = "colorsToolStripMenuItem";
-			this.colorsToolStripMenuItem.Size = new System.Drawing.Size(253, 26);
+			this.colorsToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
 			this.colorsToolStripMenuItem.Text = "Colors";
 			// 
 			// toolStripMenuItemBackgroundColor
 			// 
 			this.toolStripMenuItemBackgroundColor.Name = "toolStripMenuItemBackgroundColor";
-			this.toolStripMenuItemBackgroundColor.Size = new System.Drawing.Size(209, 26);
+			this.toolStripMenuItemBackgroundColor.Size = new System.Drawing.Size(168, 22);
 			this.toolStripMenuItemBackgroundColor.Text = "Background color";
+			this.toolStripMenuItemBackgroundColor.ToolTipText = "Choose a color for timer background. Don\'t change color of programm itself.\r\n";
+			this.toolStripMenuItemBackgroundColor.Click += new System.EventHandler(this.toolStripMenuItemBackgroundColor_Click);
 			// 
 			// toolStripMenuItemForegroundColor
 			// 
 			this.toolStripMenuItemForegroundColor.Name = "toolStripMenuItemForegroundColor";
-			this.toolStripMenuItemForegroundColor.Size = new System.Drawing.Size(209, 26);
+			this.toolStripMenuItemForegroundColor.Size = new System.Drawing.Size(168, 22);
 			this.toolStripMenuItemForegroundColor.Text = "Foreground color";
+			this.toolStripMenuItemForegroundColor.Click += new System.EventHandler(this.toolStripMenuItemForegroundColor_Click);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(250, 6);
+			this.toolStripSeparator1.Size = new System.Drawing.Size(210, 6);
 			// 
 			// toolStripMenuItemLoadOnWindowsStartUp
 			// 
 			this.toolStripMenuItemLoadOnWindowsStartUp.CheckOnClick = true;
 			this.toolStripMenuItemLoadOnWindowsStartUp.Name = "toolStripMenuItemLoadOnWindowsStartUp";
-			this.toolStripMenuItemLoadOnWindowsStartUp.Size = new System.Drawing.Size(253, 26);
+			this.toolStripMenuItemLoadOnWindowsStartUp.Size = new System.Drawing.Size(213, 22);
 			this.toolStripMenuItemLoadOnWindowsStartUp.Text = "Load on Windows Start up";
 			// 
 			// toolStripSeparator2
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(250, 6);
+			this.toolStripSeparator2.Size = new System.Drawing.Size(210, 6);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(253, 26);
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
 			this.exitToolStripMenuItem.Text = "Exit";
+			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
 			// timer
 			// 
@@ -206,9 +213,9 @@
 			// 
 			this.checkBoxShowDate.AutoSize = true;
 			this.checkBoxShowDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.checkBoxShowDate.Location = new System.Drawing.Point(22, 190);
+			this.checkBoxShowDate.Location = new System.Drawing.Point(19, 214);
 			this.checkBoxShowDate.Name = "checkBoxShowDate";
-			this.checkBoxShowDate.Size = new System.Drawing.Size(164, 35);
+			this.checkBoxShowDate.Size = new System.Drawing.Size(132, 29);
 			this.checkBoxShowDate.TabIndex = 1;
 			this.checkBoxShowDate.Text = "Show date";
 			this.checkBoxShowDate.UseVisualStyleBackColor = true;
@@ -218,9 +225,9 @@
 			// 
 			this.checkBoxShowWeekday.AutoSize = true;
 			this.checkBoxShowWeekday.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.checkBoxShowWeekday.Location = new System.Drawing.Point(22, 226);
+			this.checkBoxShowWeekday.Location = new System.Drawing.Point(19, 245);
 			this.checkBoxShowWeekday.Name = "checkBoxShowWeekday";
-			this.checkBoxShowWeekday.Size = new System.Drawing.Size(219, 35);
+			this.checkBoxShowWeekday.Size = new System.Drawing.Size(175, 29);
 			this.checkBoxShowWeekday.TabIndex = 2;
 			this.checkBoxShowWeekday.Text = "Show weekday";
 			this.checkBoxShowWeekday.UseVisualStyleBackColor = true;
@@ -229,9 +236,9 @@
 			// buttonHideControls
 			// 
 			this.buttonHideControls.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.buttonHideControls.Location = new System.Drawing.Point(22, 279);
+			this.buttonHideControls.Location = new System.Drawing.Point(10, 275);
 			this.buttonHideControls.Name = "buttonHideControls";
-			this.buttonHideControls.Size = new System.Drawing.Size(175, 53);
+			this.buttonHideControls.Size = new System.Drawing.Size(274, 53);
 			this.buttonHideControls.TabIndex = 3;
 			this.buttonHideControls.Text = "Hide controls";
 			this.buttonHideControls.UseVisualStyleBackColor = true;
@@ -248,7 +255,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(348, 431);
+			this.ClientSize = new System.Drawing.Size(294, 338);
 			this.Controls.Add(this.buttonHideControls);
 			this.Controls.Add(this.checkBoxShowWeekday);
 			this.Controls.Add(this.checkBoxShowDate);
@@ -257,6 +264,8 @@
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Clock VPD_311";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.contextMenuStrip.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();

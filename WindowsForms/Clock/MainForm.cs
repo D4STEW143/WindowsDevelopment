@@ -7,19 +7,24 @@ using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;	
+using System.Windows.Forms;
+using System.IO;
 
 namespace Clock
 {
 	public partial class MainForm : Form
 	{
-		static int onLoadFontID = 1;
+		static int onLoadFontID = 0;
+		static PrivateFontCollection userFontCollection = null; //Переделать
+		static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\WinFormsClock";
+		static string filePath = folderPath + @"\Config.txt";
 		public MainForm()
 		{
 			InitializeComponent();
 			labelTime.BackColor = Color.AliceBlue;
+			this.BackColor = Color.AliceBlue;
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
-			PrivateFontCollection userFontCollection = LoadFont();
+			userFontCollection = LoadFont();
 			SetFont(userFontCollection,onLoadFontID);
 			CheckFont(userFontCollection);
 		}
@@ -57,6 +62,39 @@ namespace Clock
 			{
 				theCaptToolStripMenuItem.Checked = true;
 			}
+		}
+
+		void CreateConfig()
+		{
+			string conf = this.BackColor.R.ToString() + "\n"
+						+ this.BackColor.G.ToString() + "\n"
+						+ this.BackColor.B.ToString() + "\n"
+						+ labelTime.ForeColor.R.ToString() + "\n"
+						+ labelTime.ForeColor.G.ToString() + "\n"
+						+ labelTime.ForeColor.B.ToString() + "\n"
+						+ toolStripMenuITemTopmost.Checked + "\n"
+						+ toolStripMenuItemShowControls.Checked + "\n"
+						+ toolStripMenuItemShowDate.Checked + "\n"
+						+ toolStripMenuItemShowWeekday.Checked + "\n"
+						+ moscowToolStripMenuItem.Checked + "\n"
+						+ theCaptToolStripMenuItem.Checked + "\n";
+			File.WriteAllText(filePath, conf);
+		}
+
+		void ReadConfig()
+		{
+			int FormColorR = Convert.ToInt32(File.ReadAllLines(filePath).First());
+			int FormColorG = Convert.ToInt32(File.ReadAllLines(filePath).Skip(1).First());
+			int FormColorB = Convert.ToInt32(File.ReadAllLines(filePath).Skip(2).First());
+			int labelColorR = Convert.ToInt32(File.ReadAllLines(filePath).Skip(3).First());
+			int labelColorG = Convert.ToInt32(File.ReadAllLines(filePath).Skip(4).First());
+			int labelColorB = Convert.ToInt32(File.ReadAllLines(filePath).Skip(5).First());
+			bool TopmostStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(6).First());
+			bool ControlsStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(7).First());
+			bool DateStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(8).First());
+			bool WeekdayStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(9).First());
+			bool FontMoscowStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(10).First());
+			bool FontCaptStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(11).First());
 		}
 
 		private void timer_Tick(object sender, EventArgs e)
@@ -138,15 +176,84 @@ namespace Clock
 		////////////////////////////Choose font//////////////////////////////
 		private void moscowToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			
+			SetFont(userFontCollection, 0);
+			moscowToolStripMenuItem.Checked = true;
 		}
 
+		private void moscowToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+		{
+			if (moscowToolStripMenuItem.Checked) theCaptToolStripMenuItem.Checked = false;
+		}
 
+		private void theCaptToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			SetFont(userFontCollection, 1);
+			theCaptToolStripMenuItem.Checked = true;
+		}
+
+		private void theCaptToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+		{
+			if(theCaptToolStripMenuItem.Checked) moscowToolStripMenuItem.Checked = false;
+		}
 
 		/////////////////////////////////////////////////////////////////////
 
 
+		//////////////////////////////Colors/////////////////////////////////
+		private void toolStripMenuItemBackgroundColor_Click(object sender, EventArgs e)
+		{
+			ColorPickForm BackgroudForm = new ColorPickForm(labelTime.BackColor.R, labelTime.BackColor.G, labelTime.BackColor.B);
+			if (BackgroudForm.ShowDialog()==DialogResult.OK)
+			{
+				Color color = Color.FromArgb(BackgroudForm.Red, BackgroudForm.Green, BackgroudForm.Blue);
+				labelTime.BackColor = color;
+				this.BackColor = color;
+			}
+		}
 
+		private void toolStripMenuItemForegroundColor_Click(object sender, EventArgs e)
+		{
+			ColorPickForm ForegroundForm = new ColorPickForm(labelTime.ForeColor.R, ForeColor.G, ForeColor.B);
+			if (ForegroundForm.ShowDialog() == DialogResult.OK)
+			{
+				Color color = Color.FromArgb(ForegroundForm.Red, ForegroundForm.Green, ForegroundForm.Blue);
+				labelTime.ForeColor = color;
+			}
+		}
+
+		/////////////////////////////////////////////////////////////////////
+		
+
+		/////////////////////////////////////////////////////////////////////
+		private void MainForm_Load(object sender, EventArgs e)
+		{
+			if(File.Exists(filePath))
+			{
+				
+			}
+		}
+
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if(!Directory.Exists(folderPath))
+			{
+				Directory.CreateDirectory(folderPath);
+				using (File.Create(filePath)) ; 
+			}
+			else
+			{
+				if (!File.Exists(filePath)) File.Create(filePath);
+				else { }
+			}
+			CreateConfig();
+		}
+
+		/////////////////////////////////////////////////////////////////////
+
+		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			this.Close();
+		}
 
 	}
 }
