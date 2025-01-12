@@ -32,8 +32,9 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.labelTime = new System.Windows.Forms.Label();
 			this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.toolStripMenuITemTopmost = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItemTopmost = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItemShowControls = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMeniItemShowConsole = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripMenuItemShowDate = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItemShowWeekday = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,7 +53,6 @@
 			this.buttonHideControls = new System.Windows.Forms.Button();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.colorDialog = new System.Windows.Forms.ColorDialog();
-			this.toolStripMeniItemShowConsole = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -66,13 +66,14 @@
 			this.labelTime.Size = new System.Drawing.Size(101, 52);
 			this.labelTime.TabIndex = 0;
 			this.labelTime.Text = "Time";
+			this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.labelTime.DoubleClick += new System.EventHandler(this.labelTime_DoubleClick);
 			// 
 			// contextMenuStrip
 			// 
 			this.contextMenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
 			this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuITemTopmost,
+            this.toolStripMenuItemTopmost,
             this.toolStripMenuItemShowControls,
             this.toolStripMeniItemShowConsole,
             this.toolStripSeparator4,
@@ -86,15 +87,15 @@
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(214, 248);
+			this.contextMenuStrip.Size = new System.Drawing.Size(214, 226);
 			// 
-			// toolStripMenuITemTopmost
+			// toolStripMenuItemTopmost
 			// 
-			this.toolStripMenuITemTopmost.CheckOnClick = true;
-			this.toolStripMenuITemTopmost.Name = "toolStripMenuITemTopmost";
-			this.toolStripMenuITemTopmost.Size = new System.Drawing.Size(213, 22);
-			this.toolStripMenuITemTopmost.Text = "Topmost";
-			this.toolStripMenuITemTopmost.CheckedChanged += new System.EventHandler(this.toolStripMenuITemTopmost_CheckedChanged);
+			this.toolStripMenuItemTopmost.CheckOnClick = true;
+			this.toolStripMenuItemTopmost.Name = "toolStripMenuItemTopmost";
+			this.toolStripMenuItemTopmost.Size = new System.Drawing.Size(213, 22);
+			this.toolStripMenuItemTopmost.Text = "Topmost";
+			this.toolStripMenuItemTopmost.CheckedChanged += new System.EventHandler(this.toolStripMenuITemTopmost_CheckedChanged);
 			// 
 			// toolStripMenuItemShowControls
 			// 
@@ -105,6 +106,14 @@
 			this.toolStripMenuItemShowControls.Size = new System.Drawing.Size(213, 22);
 			this.toolStripMenuItemShowControls.Text = "Show controls";
 			this.toolStripMenuItemShowControls.CheckedChanged += new System.EventHandler(this.toolStripMenuItemShowControls_CheckedChanged);
+			// 
+			// toolStripMeniItemShowConsole
+			// 
+			this.toolStripMeniItemShowConsole.CheckOnClick = true;
+			this.toolStripMeniItemShowConsole.Name = "toolStripMeniItemShowConsole";
+			this.toolStripMeniItemShowConsole.Size = new System.Drawing.Size(213, 22);
+			this.toolStripMeniItemShowConsole.Text = "Show console";
+			this.toolStripMeniItemShowConsole.CheckedChanged += new System.EventHandler(this.toolStripMeniItemShowConsole_CheckedChanged);
 			// 
 			// toolStripSeparator4
 			// 
@@ -235,14 +244,6 @@
 			this.notifyIcon.Visible = true;
 			this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
 			// 
-			// toolStripMeniItemShowConsole
-			// 
-			this.toolStripMeniItemShowConsole.CheckOnClick = true;
-			this.toolStripMeniItemShowConsole.Name = "toolStripMeniItemShowConsole";
-			this.toolStripMeniItemShowConsole.Size = new System.Drawing.Size(213, 22);
-			this.toolStripMeniItemShowConsole.Text = "Show console";
-			this.toolStripMeniItemShowConsole.CheckedChanged += new System.EventHandler(this.toolStripMeniItemShowConsole_CheckedChanged);
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -273,7 +274,7 @@
 		private System.Windows.Forms.Button buttonHideControls;
 		private System.Windows.Forms.NotifyIcon notifyIcon;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
-		private System.Windows.Forms.ToolStripMenuItem toolStripMenuITemTopmost;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemTopmost;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemShowControls;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemShowDate;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;

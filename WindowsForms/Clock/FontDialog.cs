@@ -16,7 +16,9 @@ namespace Clock
 	{
 		string exePath = "";
 		string fontsPath = "";
-		public Font Font{ get; set; }
+		public string FontsPath { get => fontsPath; }
+		public string FontFileName {  get; set; }
+		public Font Font { get; set; }
 		public FontDialog()
 		{
 			InitializeComponent();
@@ -24,13 +26,20 @@ namespace Clock
 			fontsPath = $"{exePath}\\..\\..\\Fonts";
 			LoadFonts();
 		}
+		public FontDialog(string fontName, float fontSize) : this()
+		{
+			nud_fontSize.Value = (decimal)fontSize;
+			cb_font.SelectedIndex = cb_font.Items.IndexOf(fontName);
+			Font = l_exampleFont.Font;
+			FontFileName = fontName;
+		}
 		void LoadFonts()
 		{
 			//Directory.SetCurrentDirectory(fontsPath);
-            //Console.WriteLine(Directory.GetCurrentDirectory());
-            Console.WriteLine(exePath);
+			//Console.WriteLine(Directory.GetCurrentDirectory());
+			//Console.WriteLine(exePath);
 
-			
+
 			cb_font.Items.AddRange(GetFontsFromDirectory(fontsPath, "*.ttf"));
 			cb_font.Items.AddRange(GetFontsFromDirectory(fontsPath, "*.otf"));
 			cb_font.SelectedIndex = 0;
@@ -60,6 +69,7 @@ namespace Clock
 		private void b_ok_Click(object sender, EventArgs e)
 		{
 			Font = l_exampleFont.Font;
+			FontFileName = cb_font.SelectedItem.ToString();
 		}
 
 		private void b_apply_Click(object sender, EventArgs e)
