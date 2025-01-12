@@ -9,11 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.Win32;
+using System.Xml.Linq;
+using System.Reflection;
 
 namespace Clock
 {
 	public partial class MainForm : Form
 	{
+		const string progName = "Clock";
 		static int onLoadFontID = 0;
 		static PrivateFontCollection userFontCollection = null; //Переделать
 		static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\WinFormsClock";
@@ -30,6 +34,28 @@ namespace Clock
 			}
 			CheckFont(userFontCollection);
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
+			
+		}
+
+		public bool SetAutoRunValue(bool value)
+		{
+			string ExePath = Assembly.GetExecutingAssembly().Location;
+			RegistryKey reg;
+			reg = Registry.CurrentUser.CreateSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Run\\");
+			try
+			{
+				if (value)
+					reg.SetValue(progName, ExePath);
+				else
+					reg.DeleteValue(progName);
+				reg.Flush();
+				reg.Close();
+			}
+			catch
+			{
+				return false;
+			}
+			return true;
 		}
 
 		void SetVisibility(bool visible)
@@ -248,6 +274,7 @@ namespace Clock
 			{
 				ReadConfig();
 			}
+			SetAutoRunValue(true);
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
