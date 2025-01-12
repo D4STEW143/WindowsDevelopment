@@ -85,7 +85,7 @@
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(214, 226);
+			this.contextMenuStrip.Size = new System.Drawing.Size(214, 204);
 			// 
 			// toolStripMenuITemTopmost
 			// 
@@ -116,6 +116,7 @@
 			this.toolStripMenuItemShowDate.Name = "toolStripMenuItemShowDate";
 			this.toolStripMenuItemShowDate.Size = new System.Drawing.Size(213, 22);
 			this.toolStripMenuItemShowDate.Text = "Show date";
+			this.toolStripMenuItemShowDate.CheckedChanged += new System.EventHandler(this.toolStripMenuItemShowDate_CheckedChanged);
 			this.toolStripMenuItemShowDate.CheckStateChanged += new System.EventHandler(this.toolStripMenuItemShowDate_CheckStateChanged);
 			// 
 			// toolStripMenuItemShowWeekday
@@ -124,6 +125,7 @@
 			this.toolStripMenuItemShowWeekday.Name = "toolStripMenuItemShowWeekday";
 			this.toolStripMenuItemShowWeekday.Size = new System.Drawing.Size(213, 22);
 			this.toolStripMenuItemShowWeekday.Text = "Show weekday";
+			this.toolStripMenuItemShowWeekday.CheckedChanged += new System.EventHandler(this.toolStripMenuItemShowWeekday_CheckedChanged);
 			this.toolStripMenuItemShowWeekday.CheckStateChanged += new System.EventHandler(this.toolStripMenuItemShowWeekday_CheckStateChanged);
 			// 
 			// toolStripSeparator5
@@ -143,7 +145,7 @@
 			// moscowToolStripMenuItem
 			// 
 			this.moscowToolStripMenuItem.Name = "moscowToolStripMenuItem";
-			this.moscowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.moscowToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
 			this.moscowToolStripMenuItem.Text = "Moscow";
 			this.moscowToolStripMenuItem.CheckedChanged += new System.EventHandler(this.moscowToolStripMenuItem_CheckedChanged);
 			this.moscowToolStripMenuItem.Click += new System.EventHandler(this.moscowToolStripMenuItem_Click);
@@ -151,7 +153,7 @@
 			// theCaptToolStripMenuItem
 			// 
 			this.theCaptToolStripMenuItem.Name = "theCaptToolStripMenuItem";
-			this.theCaptToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+			this.theCaptToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
 			this.theCaptToolStripMenuItem.Text = "The capt";
 			this.theCaptToolStripMenuItem.CheckedChanged += new System.EventHandler(this.theCaptToolStripMenuItem_CheckedChanged);
 			this.theCaptToolStripMenuItem.Click += new System.EventHandler(this.theCaptToolStripMenuItem_Click);
@@ -219,6 +221,7 @@
 			this.checkBoxShowDate.TabIndex = 1;
 			this.checkBoxShowDate.Text = "Show date";
 			this.checkBoxShowDate.UseVisualStyleBackColor = true;
+			this.checkBoxShowDate.CheckedChanged += new System.EventHandler(this.checkBoxShowDate_CheckedChanged);
 			this.checkBoxShowDate.CheckStateChanged += new System.EventHandler(this.checkBoxShowDate_CheckStateChanged);
 			// 
 			// checkBoxShowWeekday
@@ -231,6 +234,7 @@
 			this.checkBoxShowWeekday.TabIndex = 2;
 			this.checkBoxShowWeekday.Text = "Show weekday";
 			this.checkBoxShowWeekday.UseVisualStyleBackColor = true;
+			this.checkBoxShowWeekday.CheckedChanged += new System.EventHandler(this.checkBoxShowWeekday_CheckedChanged);
 			this.checkBoxShowWeekday.CheckStateChanged += new System.EventHandler(this.checkBoxShowWeekday_CheckStateChanged);
 			// 
 			// buttonHideControls

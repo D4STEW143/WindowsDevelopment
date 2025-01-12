@@ -34,7 +34,7 @@ namespace Clock
 			}
 			CheckFont(userFontCollection);
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
-			
+			SetVisibility(true);
 		}
 
 		public bool SetAutoRunValue(bool value)
@@ -157,16 +157,6 @@ namespace Clock
 			notifyIcon.Text = $"{DateTime.Now.ToString("hh:mm tt")}\n{DateTime.Now.ToString("yyyy.MM.dd")}\n{DateTime.Now.DayOfWeek}";
 		}
 
-		private void buttonHideControls_Click(object sender, EventArgs e)
-		{
-			SetVisibility(false);
-		}
-
-		private void labelTime_DoubleClick(object sender, EventArgs e)
-		{
-			SetVisibility(true);
-		}
-
 		//////////////////////////////Topmost////////////////////////////////
 		private void toolStripMenuITemTopmost_CheckedChanged(object sender, EventArgs e)
 		{
@@ -178,44 +168,59 @@ namespace Clock
 		//////////////////////////////Show controls//////////////////////////
 		private void toolStripMenuItemShowControls_CheckedChanged(object sender, EventArgs e)
 		{
-			if(!toolStripMenuItemShowControls.Checked) SetVisibility(false);
-			else SetVisibility(true);
+			SetVisibility(toolStripMenuItemShowControls.Checked);
 		}
+		private void buttonHideControls_Click(object sender, EventArgs e)
+		{
+			toolStripMenuItemShowControls.Checked = false;
+		}
+		private void labelTime_DoubleClick(object sender, EventArgs e) => toolStripMenuItemShowControls.Checked=true;
 		/////////////////////////////////////////////////////////////////////
 
 		//////////////////////////////Show date//////////////////////////////
+		private void toolStripMenuItemShowDate_CheckedChanged(object sender, EventArgs e) =>
+			checkBoxShowDate.Checked = toolStripMenuItemShowDate.Checked;
+		
+		private void checkBoxShowDate_CheckedChanged(object sender, EventArgs e) =>
+			toolStripMenuItemShowDate.Checked=checkBoxShowDate.Checked;
+		
 		private void checkBoxShowDate_CheckStateChanged(object sender, EventArgs e)
 		{
-			if (checkBoxShowDate.Checked) toolStripMenuItemShowDate.Checked = true;
-			else toolStripMenuItemShowDate.Checked = false;
+			//if (checkBoxShowDate.Checked) toolStripMenuItemShowDate.Checked = true;
+			//else toolStripMenuItemShowDate.Checked = false;
 		}
 
 		private void toolStripMenuItemShowDate_CheckStateChanged(object sender, EventArgs e)
 		{
-			switch(toolStripMenuItemShowDate.Checked)
-			{
-				case true:		checkBoxShowDate.Checked = true; break;
-				case false:		checkBoxShowDate.Checked = false; break;
-			}
+			//switch(toolStripMenuItemShowDate.Checked)
+			//{
+			//	case true:		checkBoxShowDate.Checked = true; break;
+			//	case false:		checkBoxShowDate.Checked = false; break;
+			//}
 		}
 		/////////////////////////////////////////////////////////////////////
 
 		////////////////////////////Show weekday/////////////////////////////
+		private void toolStripMenuItemShowWeekday_CheckedChanged(object sender, EventArgs e) =>
+			checkBoxShowWeekday.Checked = toolStripMenuItemShowWeekday.Checked;
+		private void checkBoxShowWeekday_CheckedChanged(object sender, EventArgs e) =>
+			toolStripMenuItemShowWeekday.Checked=checkBoxShowWeekday.Checked;
 		private void checkBoxShowWeekday_CheckStateChanged(object sender, EventArgs e)
 		{
-			if(checkBoxShowWeekday.Checked) toolStripMenuItemShowWeekday.Checked = true;
-			else toolStripMenuItemShowWeekday.Checked= false;
+			//if(checkBoxShowWeekday.Checked) toolStripMenuItemShowWeekday.Checked = true;
+			//else toolStripMenuItemShowWeekday.Checked= false;
 		}
 
 		private void toolStripMenuItemShowWeekday_CheckStateChanged(object sender, EventArgs e)
 		{
-			switch (toolStripMenuItemShowWeekday.Checked)
-			{
-				case true:		checkBoxShowWeekday.Checked = true; break;
-				case false :	checkBoxShowWeekday.Checked = false; break;
-			}
+			//switch (toolStripMenuItemShowWeekday.Checked)
+			//{
+			//	case true:		checkBoxShowWeekday.Checked = true; break;
+			//	case false :	checkBoxShowWeekday.Checked = false; break;
+			//}
 		}
 
+		
 		/////////////////////////////////////////////////////////////////////
 
 		////////////////////////////Choose font//////////////////////////////
@@ -275,6 +280,7 @@ namespace Clock
 				ReadConfig();
 			}
 			SetAutoRunValue(true);
+			toolStripMenuItemShowControls.Checked = false;
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -299,5 +305,6 @@ namespace Clock
 			this.Close();
 		}
 
+		
 	}
 }
