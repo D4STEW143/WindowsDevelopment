@@ -53,6 +53,7 @@
 			this.checkBoxShowWeekday = new System.Windows.Forms.CheckBox();
 			this.buttonHideControls = new System.Windows.Forms.Button();
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+			this.colorDialog = new System.Windows.Forms.ColorDialog();
 			this.contextMenuStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -145,7 +146,7 @@
 			// moscowToolStripMenuItem
 			// 
 			this.moscowToolStripMenuItem.Name = "moscowToolStripMenuItem";
-			this.moscowToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+			this.moscowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.moscowToolStripMenuItem.Text = "Moscow";
 			this.moscowToolStripMenuItem.CheckedChanged += new System.EventHandler(this.moscowToolStripMenuItem_CheckedChanged);
 			this.moscowToolStripMenuItem.Click += new System.EventHandler(this.moscowToolStripMenuItem_Click);
@@ -153,7 +154,7 @@
 			// theCaptToolStripMenuItem
 			// 
 			this.theCaptToolStripMenuItem.Name = "theCaptToolStripMenuItem";
-			this.theCaptToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+			this.theCaptToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.theCaptToolStripMenuItem.Text = "The capt";
 			this.theCaptToolStripMenuItem.CheckedChanged += new System.EventHandler(this.theCaptToolStripMenuItem_CheckedChanged);
 			this.theCaptToolStripMenuItem.Click += new System.EventHandler(this.theCaptToolStripMenuItem_Click);
@@ -170,7 +171,7 @@
 			// toolStripMenuItemBackgroundColor
 			// 
 			this.toolStripMenuItemBackgroundColor.Name = "toolStripMenuItemBackgroundColor";
-			this.toolStripMenuItemBackgroundColor.Size = new System.Drawing.Size(168, 22);
+			this.toolStripMenuItemBackgroundColor.Size = new System.Drawing.Size(180, 22);
 			this.toolStripMenuItemBackgroundColor.Text = "Background color";
 			this.toolStripMenuItemBackgroundColor.ToolTipText = "Choose a color for timer background. Don\'t change color of programm itself.\r\n";
 			this.toolStripMenuItemBackgroundColor.Click += new System.EventHandler(this.toolStripMenuItemBackgroundColor_Click);
@@ -178,7 +179,7 @@
 			// toolStripMenuItemForegroundColor
 			// 
 			this.toolStripMenuItemForegroundColor.Name = "toolStripMenuItemForegroundColor";
-			this.toolStripMenuItemForegroundColor.Size = new System.Drawing.Size(168, 22);
+			this.toolStripMenuItemForegroundColor.Size = new System.Drawing.Size(180, 22);
 			this.toolStripMenuItemForegroundColor.Text = "Foreground color";
 			this.toolStripMenuItemForegroundColor.Click += new System.EventHandler(this.toolStripMenuItemForegroundColor_Click);
 			// 
@@ -301,6 +302,7 @@
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemForegroundColor;
 		private System.Windows.Forms.ToolStripMenuItem moscowToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem theCaptToolStripMenuItem;
+		private System.Windows.Forms.ColorDialog colorDialog;
 	}
 }
 

@@ -250,23 +250,28 @@ namespace Clock
 		//////////////////////////////Colors/////////////////////////////////
 		private void toolStripMenuItemBackgroundColor_Click(object sender, EventArgs e)
 		{
-			ColorPickForm BackgroudForm = new ColorPickForm(labelTime.BackColor.R, labelTime.BackColor.G, labelTime.BackColor.B);
-			if (BackgroudForm.ShowDialog()==DialogResult.OK)
-			{
-				Color color = Color.FromArgb(BackgroudForm.Red, BackgroudForm.Green, BackgroudForm.Blue);
-				labelTime.BackColor = color;
-				this.BackColor = color;
-			}
+			//ColorPickForm BackgroudForm = new ColorPickForm(labelTime.BackColor.R, labelTime.BackColor.G, labelTime.BackColor.B);
+			//if (BackgroudForm.ShowDialog()==DialogResult.OK)
+			//{
+			//	Color color = Color.FromArgb(BackgroudForm.Red, BackgroudForm.Green, BackgroudForm.Blue);
+			//	labelTime.BackColor = color;
+			//	this.BackColor = color;
+			//}
+			colorDialog.Color = labelTime.BackColor;
+			DialogResult result = colorDialog.ShowDialog(this);
+			if(result == DialogResult.OK) labelTime.BackColor = colorDialog.Color;
 		}
 
 		private void toolStripMenuItemForegroundColor_Click(object sender, EventArgs e)
 		{
-			ColorPickForm ForegroundForm = new ColorPickForm(labelTime.ForeColor.R, ForeColor.G, ForeColor.B);
-			if (ForegroundForm.ShowDialog() == DialogResult.OK)
-			{
-				Color color = Color.FromArgb(ForegroundForm.Red, ForegroundForm.Green, ForegroundForm.Blue);
-				labelTime.ForeColor = color;
-			}
+			//ColorPickForm ForegroundForm = new ColorPickForm(labelTime.ForeColor.R, ForeColor.G, ForeColor.B);
+			//if (ForegroundForm.ShowDialog() == DialogResult.OK)
+			//{
+			//	Color color = Color.FromArgb(ForegroundForm.Red, ForegroundForm.Green, ForegroundForm.Blue);
+			//	labelTime.ForeColor = color;
+			//}
+			colorDialog.Color = labelTime.ForeColor;
+			if (colorDialog.ShowDialog(this) == DialogResult.OK) labelTime.ForeColor = colorDialog.Color;
 		}
 
 		/////////////////////////////////////////////////////////////////////
