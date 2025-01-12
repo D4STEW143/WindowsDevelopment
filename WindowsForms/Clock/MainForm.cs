@@ -21,12 +21,15 @@ namespace Clock
 		public MainForm()
 		{
 			InitializeComponent();
-			labelTime.BackColor = Color.AliceBlue;
-			this.BackColor = Color.AliceBlue;
-			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
 			userFontCollection = LoadFont();
-			SetFont(userFontCollection,onLoadFontID);
+			if (!File.Exists(filePath))
+			{
+				labelTime.BackColor = Color.AliceBlue;
+				this.BackColor = Color.AliceBlue;
+				SetFont(userFontCollection,onLoadFontID);
+			}
 			CheckFont(userFontCollection);
+			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
 		}
 
 		void SetVisibility(bool visible)
@@ -66,6 +69,9 @@ namespace Clock
 
 		void CreateConfig()
 		{
+			int FontID = 0;
+			if (moscowToolStripMenuItem.Checked == true) FontID = 0;
+			else if (theCaptToolStripMenuItem.Checked == true) FontID = 1;
 			string conf = this.BackColor.R.ToString() + "\n"
 						+ this.BackColor.G.ToString() + "\n"
 						+ this.BackColor.B.ToString() + "\n"
@@ -77,7 +83,8 @@ namespace Clock
 						+ toolStripMenuItemShowDate.Checked + "\n"
 						+ toolStripMenuItemShowWeekday.Checked + "\n"
 						+ moscowToolStripMenuItem.Checked + "\n"
-						+ theCaptToolStripMenuItem.Checked + "\n";
+						+ theCaptToolStripMenuItem.Checked + "\n"
+						+ FontID + "\n";
 			File.WriteAllText(filePath, conf);
 		}
 
@@ -95,6 +102,18 @@ namespace Clock
 			bool WeekdayStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(9).First());
 			bool FontMoscowStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(10).First());
 			bool FontCaptStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(11).First());
+			int FontID = Convert.ToInt32(File.ReadAllLines(filePath).Skip(12).First());
+
+			this.BackColor = Color.FromArgb(FormColorR, FormColorG, FormColorB);
+			labelTime.ForeColor = Color.FromArgb(labelColorR, labelColorG, labelColorB);
+			toolStripMenuITemTopmost.Checked = TopmostStatus;
+			toolStripMenuItemShowControls.Checked = ControlsStatus;
+			toolStripMenuItemShowDate.Checked = DateStatus;
+			toolStripMenuItemShowWeekday.Checked = WeekdayStatus;
+			moscowToolStripMenuItem.Checked = FontMoscowStatus;
+			theCaptToolStripMenuItem.Checked = FontCaptStatus;
+			onLoadFontID = FontID;
+			SetFont(userFontCollection, FontID);
 		}
 
 		private void timer_Tick(object sender, EventArgs e)
@@ -179,7 +198,6 @@ namespace Clock
 			SetFont(userFontCollection, 0);
 			moscowToolStripMenuItem.Checked = true;
 		}
-
 		private void moscowToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
 		{
 			if (moscowToolStripMenuItem.Checked) theCaptToolStripMenuItem.Checked = false;
@@ -190,7 +208,6 @@ namespace Clock
 			SetFont(userFontCollection, 1);
 			theCaptToolStripMenuItem.Checked = true;
 		}
-
 		private void theCaptToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
 		{
 			if(theCaptToolStripMenuItem.Checked) moscowToolStripMenuItem.Checked = false;
@@ -229,7 +246,7 @@ namespace Clock
 		{
 			if(File.Exists(filePath))
 			{
-				
+				ReadConfig();
 			}
 		}
 

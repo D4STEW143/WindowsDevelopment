@@ -85,7 +85,7 @@
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(214, 204);
+			this.contextMenuStrip.Size = new System.Drawing.Size(214, 226);
 			// 
 			// toolStripMenuITemTopmost
 			// 
@@ -143,7 +143,7 @@
 			// moscowToolStripMenuItem
 			// 
 			this.moscowToolStripMenuItem.Name = "moscowToolStripMenuItem";
-			this.moscowToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+			this.moscowToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.moscowToolStripMenuItem.Text = "Moscow";
 			this.moscowToolStripMenuItem.CheckedChanged += new System.EventHandler(this.moscowToolStripMenuItem_CheckedChanged);
 			this.moscowToolStripMenuItem.Click += new System.EventHandler(this.moscowToolStripMenuItem_Click);
@@ -151,7 +151,7 @@
 			// theCaptToolStripMenuItem
 			// 
 			this.theCaptToolStripMenuItem.Name = "theCaptToolStripMenuItem";
-			this.theCaptToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+			this.theCaptToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
 			this.theCaptToolStripMenuItem.Text = "The capt";
 			this.theCaptToolStripMenuItem.CheckedChanged += new System.EventHandler(this.theCaptToolStripMenuItem_CheckedChanged);
 			this.theCaptToolStripMenuItem.Click += new System.EventHandler(this.theCaptToolStripMenuItem_Click);
