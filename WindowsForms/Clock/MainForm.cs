@@ -19,9 +19,6 @@ namespace Clock
 	public partial class MainForm : Form
 	{
 		FontDialog fontDialog;
-		//const string progName = "Clock";
-		//static string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\WinFormsClock";
-		//static string filePath = folderPath + @"\Config.txt";
 		public MainForm()
 		{
 			InitializeComponent();
@@ -173,7 +170,7 @@ namespace Clock
 		private void toolStripMenuITemTopmost_CheckedChanged(object sender, EventArgs e)
 		{
 			if (toolStripMenuItemTopmost.Checked) TopMost = true;
-			else TopMost = false;
+			else if(!toolStripMenuItemTopmost.Checked) TopMost = false;
 		}
 		/////////////////////////////////////////////////////////////////////
 
@@ -252,11 +249,8 @@ namespace Clock
 
 		private void notifyIcon_DoubleClick(object sender, EventArgs e)
 		{
-			if (!this.TopMost)
-			{
-				this.TopMost = true;
-				this.TopMost = false;
-			}
+			if (toolStripMenuItemTopmost.Checked == false) toolStripMenuItemTopmost.Checked = true;
+			else if (toolStripMenuItemTopmost.Checked == true) toolStripMenuItemTopmost.Checked = false;
 		}
 
 		private void toolStripMeniItemShowConsole_CheckedChanged(object sender, EventArgs e)
