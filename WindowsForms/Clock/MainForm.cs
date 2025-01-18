@@ -36,6 +36,7 @@ namespace Clock
 
 			LoadSettings();
 			if(fontDialog == null) fontDialog = new FontDialog();
+			EnableDoubleBuffering();
 		}
 
 		void SetVisibility(bool visible)
@@ -94,6 +95,15 @@ namespace Clock
 				MessageBox.Show(this, ex.ToString(), "In load settings()", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 
+		}
+
+		public void EnableDoubleBuffering()
+		{
+			this.SetStyle(ControlStyles.DoubleBuffer |
+			ControlStyles.UserPaint |
+			ControlStyles.AllPaintingInWmPaint,
+			true);
+			this.UpdateStyles();
 		}
 
 		//void CreateConfig()
