@@ -18,7 +18,7 @@ namespace Clock
 		string fontsPath = "";
 		public string FontsPath { get => fontsPath; }
 		public string FontFileName {  get; set; }
-		public Font Font { get; set; }
+		public override Font Font { get; set; }
 		public FontDialog()
 		{
 			InitializeComponent();
