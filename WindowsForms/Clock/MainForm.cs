@@ -261,5 +261,13 @@ namespace Clock
 		static extern bool AllocConsole();
 		[DllImport("kernel32.dll")]
 		static extern bool FreeConsole();
+
+		private void alarmToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Form AlarmForm = new AlarmForm();
+			AlarmForm.Show();
+		}
 	}
+
+	
 }

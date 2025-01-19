@@ -45,6 +45,7 @@
 			this.toolStripMenuItemForegroundColor = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripMenuItemLoadOnWindowsStartUp = new System.Windows.Forms.ToolStripMenuItem();
+			this.alarmToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.timer = new System.Windows.Forms.Timer(this.components);
@@ -84,10 +85,11 @@
             this.colorsToolStripMenuItem,
             this.toolStripSeparator1,
             this.toolStripMenuItemLoadOnWindowsStartUp,
+            this.alarmToolStripMenuItem,
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
 			this.contextMenuStrip.Name = "contextMenuStrip";
-			this.contextMenuStrip.Size = new System.Drawing.Size(214, 226);
+			this.contextMenuStrip.Size = new System.Drawing.Size(214, 270);
 			// 
 			// toolStripMenuItemTopmost
 			// 
@@ -183,6 +185,13 @@
 			this.toolStripMenuItemLoadOnWindowsStartUp.Name = "toolStripMenuItemLoadOnWindowsStartUp";
 			this.toolStripMenuItemLoadOnWindowsStartUp.Size = new System.Drawing.Size(213, 22);
 			this.toolStripMenuItemLoadOnWindowsStartUp.Text = "Load on Windows Start up";
+			// 
+			// alarmToolStripMenuItem
+			// 
+			this.alarmToolStripMenuItem.Name = "alarmToolStripMenuItem";
+			this.alarmToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+			this.alarmToolStripMenuItem.Text = "Alarm";
+			this.alarmToolStripMenuItem.Click += new System.EventHandler(this.alarmToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator2
 			// 
@@ -290,6 +299,7 @@
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemForegroundColor;
 		private System.Windows.Forms.ColorDialog colorDialog;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMeniItemShowConsole;
+		private System.Windows.Forms.ToolStripMenuItem alarmToolStripMenuItem;
 	}
 }
 
