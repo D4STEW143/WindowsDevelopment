@@ -19,6 +19,7 @@ namespace Clock
 	public partial class MainForm : Form
 	{
 		FontDialog fontDialog;
+		Alarm alarmsForm;
 		public MainForm()
 		{
 			InitializeComponent();
@@ -27,11 +28,9 @@ namespace Clock
 			labelTime.BackColor = Color.AliceBlue;
 			this.Location = new Point(Screen.PrimaryScreen.Bounds.Width - this.Width, 50);
 			toolStripMenuItemShowControls.Checked = true;
-
-
 			Console.WriteLine(Directory.GetCurrentDirectory());
-
 			LoadSettings();
+			alarmsForm = new Alarm();
 			if(fontDialog == null) fontDialog = new FontDialog();
 			EnableDoubleBuffering();
 		}
@@ -96,61 +95,9 @@ namespace Clock
 
 		public void EnableDoubleBuffering()
 		{
-			this.SetStyle(ControlStyles.DoubleBuffer |
-			ControlStyles.UserPaint |
-			ControlStyles.AllPaintingInWmPaint,
-			true);
+			this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
 			this.UpdateStyles();
 		}
-
-		//void CreateConfig()
-		//{
-		//	int FontID = 0;
-		//	//if (moscowToolStripMenuItem.Checked == true) FontID = 0;
-		//	//else if (theCaptToolStripMenuItem.Checked == true) FontID = 1;
-		//	string conf = this.BackColor.R.ToString() + "\n"
-		//				+ this.BackColor.G.ToString() + "\n"
-		//				+ this.BackColor.B.ToString() + "\n"
-		//				+ labelTime.ForeColor.R.ToString() + "\n"
-		//				+ labelTime.ForeColor.G.ToString() + "\n"
-		//				+ labelTime.ForeColor.B.ToString() + "\n"
-		//				+ toolStripMenuITemTopmost.Checked + "\n"
-		//				+ toolStripMenuItemShowControls.Checked + "\n"
-		//				+ toolStripMenuItemShowDate.Checked + "\n"
-		//				+ toolStripMenuItemShowWeekday.Checked + "\n"
-		//				//+ moscowToolStripMenuItem.Checked + "\n"
-		//				//+ theCaptToolStripMenuItem.Checked + "\n"
-		//				+ FontID + "\n";
-		//	File.WriteAllText(filePath, conf);
-		//}
-
-		//void ReadConfig()
-		//{
-		//	int FormColorR = Convert.ToInt32(File.ReadAllLines(filePath).First());
-		//	int FormColorG = Convert.ToInt32(File.ReadAllLines(filePath).Skip(1).First());
-		//	int FormColorB = Convert.ToInt32(File.ReadAllLines(filePath).Skip(2).First());
-		//	int labelColorR = Convert.ToInt32(File.ReadAllLines(filePath).Skip(3).First());
-		//	int labelColorG = Convert.ToInt32(File.ReadAllLines(filePath).Skip(4).First());
-		//	int labelColorB = Convert.ToInt32(File.ReadAllLines(filePath).Skip(5).First());
-		//	bool TopmostStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(6).First());
-		//	bool ControlsStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(7).First());
-		//	bool DateStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(8).First());
-		//	bool WeekdayStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(9).First());
-		//	//bool FontMoscowStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(10).First());
-		//	//bool FontCaptStatus = Convert.ToBoolean(File.ReadAllLines(filePath).Skip(11).First());
-		//	//int FontID = Convert.ToInt32(File.ReadAllLines(filePath).Skip(12).First());
-
-		//	this.BackColor = Color.FromArgb(FormColorR, FormColorG, FormColorB);
-		//	labelTime.ForeColor = Color.FromArgb(labelColorR, labelColorG, labelColorB);
-		//	toolStripMenuITemTopmost.Checked = TopmostStatus;
-		//	toolStripMenuItemShowControls.Checked = ControlsStatus;
-		//	toolStripMenuItemShowDate.Checked = DateStatus;
-		//	toolStripMenuItemShowWeekday.Checked = WeekdayStatus;
-		//	//moscowToolStripMenuItem.Checked = FontMoscowStatus;
-		//	//theCaptToolStripMenuItem.Checked = FontCaptStatus;
-		//	//onLoadFontID = FontID;
-		//	//SetFont(userFontCollection, FontID);
-		//}
 
 		private void timer_Tick(object sender, EventArgs e)
 		{
@@ -227,7 +174,26 @@ namespace Clock
 		}
 
 		/////////////////////////////////////////////////////////////////////
+		
+		/////////////////////////////////////////////////////////////////////
+		private void toolStripMenuItemLoadOnWindowsStartUp_CheckedChanged(object sender, EventArgs e)
+		{
+			string key_Name = "Clock_VPD_311";
+			RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+			if (toolStripMenuItemLoadOnWindowsStartUp.Checked) key.SetValue(key_Name, Application.ExecutablePath);
+			else key.DeleteValue(key_Name, false);
+			key.Dispose();
+		}
 
+		/////////////////////////////////////////////////////////////////////
+		
+		//////////////////////////////Alarms/////////////////////////////////
+		private void ToolStripMenuItemAlarms_Click(object sender, EventArgs e)
+		{
+			alarmsForm.ShowDialog();
+		}
+
+		/////////////////////////////////////////////////////////////////////
 
 		/////////////////////////////////////////////////////////////////////
 		private void MainForm_Load(object sender, EventArgs e)
@@ -262,11 +228,7 @@ namespace Clock
 		[DllImport("kernel32.dll")]
 		static extern bool FreeConsole();
 
-		private void alarmToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Form AlarmForm = new AlarmForm();
-			AlarmForm.Show();
-		}
+
 	}
 
 	
