@@ -41,27 +41,32 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.lb_Alarms.FormattingEnabled = true;
-			this.lb_Alarms.Location = new System.Drawing.Point(13, 13);
+			this.lb_Alarms.ItemHeight = 16;
+			this.lb_Alarms.Location = new System.Drawing.Point(17, 16);
+			this.lb_Alarms.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.lb_Alarms.MultiColumn = true;
 			this.lb_Alarms.Name = "lb_Alarms";
-			this.lb_Alarms.Size = new System.Drawing.Size(509, 186);
+			this.lb_Alarms.Size = new System.Drawing.Size(677, 228);
 			this.lb_Alarms.TabIndex = 0;
 			// 
 			// lbl_AlarmInfo
 			// 
 			this.lbl_AlarmInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.lbl_AlarmInfo.AutoSize = true;
-			this.lbl_AlarmInfo.Location = new System.Drawing.Point(13, 206);
+			this.lbl_AlarmInfo.Location = new System.Drawing.Point(17, 254);
+			this.lbl_AlarmInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.lbl_AlarmInfo.Name = "lbl_AlarmInfo";
-			this.lbl_AlarmInfo.Size = new System.Drawing.Size(35, 13);
+			this.lbl_AlarmInfo.Size = new System.Drawing.Size(44, 16);
 			this.lbl_AlarmInfo.TabIndex = 1;
 			this.lbl_AlarmInfo.Text = "label1";
 			// 
 			// btn_Add
 			// 
 			this.btn_Add.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btn_Add.Location = new System.Drawing.Point(365, 236);
+			this.btn_Add.Location = new System.Drawing.Point(487, 290);
+			this.btn_Add.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.btn_Add.Name = "btn_Add";
-			this.btn_Add.Size = new System.Drawing.Size(75, 23);
+			this.btn_Add.Size = new System.Drawing.Size(100, 28);
 			this.btn_Add.TabIndex = 2;
 			this.btn_Add.Text = "Add";
 			this.btn_Add.UseVisualStyleBackColor = true;
@@ -71,24 +76,27 @@
 			// 
 			this.btn_Cansel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btn_Cansel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btn_Cansel.Location = new System.Drawing.Point(447, 236);
+			this.btn_Cansel.Location = new System.Drawing.Point(596, 290);
+			this.btn_Cansel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.btn_Cansel.Name = "btn_Cansel";
-			this.btn_Cansel.Size = new System.Drawing.Size(75, 23);
+			this.btn_Cansel.Size = new System.Drawing.Size(100, 28);
 			this.btn_Cansel.TabIndex = 3;
 			this.btn_Cansel.Text = "Cansel";
 			this.btn_Cansel.UseVisualStyleBackColor = true;
 			// 
 			// Alarm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(534, 271);
+			this.ClientSize = new System.Drawing.Size(712, 334);
 			this.Controls.Add(this.btn_Cansel);
 			this.Controls.Add(this.btn_Add);
 			this.Controls.Add(this.lbl_AlarmInfo);
 			this.Controls.Add(this.lb_Alarms);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
 			this.Name = "Alarm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Alarm";
 			this.ResumeLayout(false);
 			this.PerformLayout();

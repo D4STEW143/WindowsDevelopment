@@ -22,7 +22,11 @@ namespace Clock
 
 		private void btn_Add_Click(object sender, EventArgs e)
 		{
-			dialog.ShowDialog();
+			if (dialog.ShowDialog() == DialogResult.OK)
+			{
+				lb_Alarms.Items.Add(dialog.alarmList[0].Text);
+			}
 		}
+
 	}
 }

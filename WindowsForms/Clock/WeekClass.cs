@@ -8,6 +8,11 @@ namespace Clock
 {
 	internal class WeekClass
 	{
-		byte days;
+		public byte Days { get; set; }
+		public WeekClass(byte days) { Days = days; }
+		public override string ToString()
+		{
+			return $"{Days}";
+		}
 	}
 }
