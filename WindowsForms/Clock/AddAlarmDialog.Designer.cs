@@ -98,11 +98,11 @@
 			// lbl_FileName
 			// 
 			this.lbl_FileName.AutoSize = true;
-			this.lbl_FileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lbl_FileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.lbl_FileName.Location = new System.Drawing.Point(14, 231);
 			this.lbl_FileName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.lbl_FileName.Name = "lbl_FileName";
-			this.lbl_FileName.Size = new System.Drawing.Size(139, 32);
+			this.lbl_FileName.Size = new System.Drawing.Size(82, 20);
 			this.lbl_FileName.TabIndex = 4;
 			this.lbl_FileName.Text = "File name";
 			// 
@@ -155,6 +155,7 @@
 			this.btn_ChooseSignal.TabIndex = 9;
 			this.btn_ChooseSignal.Text = "Choose signal";
 			this.btn_ChooseSignal.UseVisualStyleBackColor = true;
+			this.btn_ChooseSignal.Click += new System.EventHandler(this.btn_ChooseSignal_Click);
 			// 
 			// AddAlarmDialog
 			// 
