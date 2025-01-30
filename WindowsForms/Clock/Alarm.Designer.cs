@@ -43,11 +43,12 @@
 			this.lb_Alarms.FormattingEnabled = true;
 			this.lb_Alarms.ItemHeight = 16;
 			this.lb_Alarms.Location = new System.Drawing.Point(17, 16);
-			this.lb_Alarms.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.lb_Alarms.Margin = new System.Windows.Forms.Padding(4);
 			this.lb_Alarms.MultiColumn = true;
 			this.lb_Alarms.Name = "lb_Alarms";
 			this.lb_Alarms.Size = new System.Drawing.Size(677, 228);
 			this.lb_Alarms.TabIndex = 0;
+			this.lb_Alarms.DoubleClick += new System.EventHandler(this.lb_Alarms_DoubleClick);
 			// 
 			// lbl_AlarmInfo
 			// 
@@ -64,7 +65,7 @@
 			// 
 			this.btn_Add.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btn_Add.Location = new System.Drawing.Point(487, 290);
-			this.btn_Add.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btn_Add.Margin = new System.Windows.Forms.Padding(4);
 			this.btn_Add.Name = "btn_Add";
 			this.btn_Add.Size = new System.Drawing.Size(100, 28);
 			this.btn_Add.TabIndex = 2;
@@ -77,7 +78,7 @@
 			this.btn_Cansel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btn_Cansel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btn_Cansel.Location = new System.Drawing.Point(596, 290);
-			this.btn_Cansel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.btn_Cansel.Margin = new System.Windows.Forms.Padding(4);
 			this.btn_Cansel.Name = "btn_Cansel";
 			this.btn_Cansel.Size = new System.Drawing.Size(100, 28);
 			this.btn_Cansel.TabIndex = 3;
@@ -94,7 +95,7 @@
 			this.Controls.Add(this.lbl_AlarmInfo);
 			this.Controls.Add(this.lb_Alarms);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "Alarm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Alarm";

@@ -28,5 +28,12 @@ namespace Clock
 			}
 		}
 
+		private void lb_Alarms_DoubleClick(object sender, EventArgs e)
+		{
+			if(lb_Alarms.SelectedItem == null) return;
+			dialog.Alarm = lb_Alarms.SelectedItem as AlarmClass;
+			dialog.ShowDialog();
+			if (dialog.DialogResult == DialogResult.OK)	lb_Alarms.Items[lb_Alarms.SelectedIndex] = dialog.Alarm;
+		}
 	}
 }
