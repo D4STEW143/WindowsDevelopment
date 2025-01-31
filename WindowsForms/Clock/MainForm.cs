@@ -13,6 +13,7 @@ using Microsoft.Win32;
 using System.Xml.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace Clock
 {
@@ -32,8 +33,9 @@ namespace Clock
 			Console.WriteLine(Directory.GetCurrentDirectory());
 			LoadSettings();
 			alarmsForm = new Alarm();
-			if(fontDialog == null) fontDialog = new FontDialog();
+			if (fontDialog == null) fontDialog = new FontDialog();
 			EnableDoubleBuffering();
+			axWindowsMediaPlayer1.Visible = false;
 		}
 
 		void SetVisibility(bool visible)
@@ -48,7 +50,7 @@ namespace Clock
 
 		void SaveSettings()
 		{
-			StreamWriter sw = 
+			StreamWriter sw =
 				new StreamWriter($"{Path.GetDirectoryName(Application.ExecutablePath)}\\..\\..\\Settings.ini");
 
 			sw.WriteLine($"{toolStripMenuItemTopmost.Checked}");
@@ -119,15 +121,33 @@ namespace Clock
 			}
 			notifyIcon.Text = $"{DateTime.Now.ToString("hh:mm tt")}\n{DateTime.Now.ToString("yyyy.MM.dd")}\n{DateTime.Now.DayOfWeek}";
 
-			nextAlarm = FindNextAlarm(); 
-            if(nextAlarm!=null)Console.WriteLine(nextAlarm.ToString());
+			nextAlarm = FindNextAlarm();
+			if (nextAlarm != null)
+			{
+				Console.WriteLine(nextAlarm.ToString());
+			}
+
+			if(
+				nextAlarm!=null &&
+				nextAlarm.Time.Hours == DateTime.Now.Hour &&
+				nextAlarm.Time.Minutes == DateTime.Now.Minute &&
+				nextAlarm.Time.Seconds == DateTime.Now.Second
+				)
+			{
+				System.Threading.Thread.Sleep(1000);
+				axWindowsMediaPlayer1.Visible = true;
+				axWindowsMediaPlayer1.URL = nextAlarm.FileName;
+				axWindowsMediaPlayer1.settings.volume = 100;
+				if(nextAlarm.Message != "")
+					MessageBox.Show(this, nextAlarm.ToString(), "Alarm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
 		}
 
 		//////////////////////////////Topmost////////////////////////////////
 		private void toolStripMenuITemTopmost_CheckedChanged(object sender, EventArgs e)
 		{
 			if (toolStripMenuItemTopmost.Checked) TopMost = true;
-			else if(!toolStripMenuItemTopmost.Checked) TopMost = false;
+			else if (!toolStripMenuItemTopmost.Checked) TopMost = false;
 		}
 		/////////////////////////////////////////////////////////////////////
 
@@ -184,7 +204,7 @@ namespace Clock
 		}
 
 		/////////////////////////////////////////////////////////////////////
-		
+
 		/////////////////////////////////////////////////////////////////////
 		private void toolStripMenuItemLoadOnWindowsStartUp_CheckedChanged(object sender, EventArgs e)
 		{
@@ -196,7 +216,7 @@ namespace Clock
 		}
 
 		/////////////////////////////////////////////////////////////////////
-		
+
 		//////////////////////////////Alarms/////////////////////////////////
 		private void ToolStripMenuItemAlarms_Click(object sender, EventArgs e)
 		{
@@ -241,5 +261,5 @@ namespace Clock
 
 	}
 
-	
+
 }
