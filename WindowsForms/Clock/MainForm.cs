@@ -20,6 +20,7 @@ namespace Clock
 	{
 		FontDialog fontDialog;
 		Alarm alarmsForm;
+		AlarmClass nextAlarm;
 		public MainForm()
 		{
 			InitializeComponent();
@@ -99,6 +100,12 @@ namespace Clock
 			this.UpdateStyles();
 		}
 
+		AlarmClass FindNextAlarm()
+		{
+			nextAlarm = alarmsForm.Alarms.Items.Cast<AlarmClass>().ToArray().Min();
+			return nextAlarm;
+		}
+
 		private void timer_Tick(object sender, EventArgs e)
 		{
 			labelTime.Text = DateTime.Now.ToString("HH:mm:ss");
@@ -111,6 +118,9 @@ namespace Clock
 				labelTime.Text += $"\n{DateTime.Now.DayOfWeek}";
 			}
 			notifyIcon.Text = $"{DateTime.Now.ToString("hh:mm tt")}\n{DateTime.Now.ToString("yyyy.MM.dd")}\n{DateTime.Now.DayOfWeek}";
+
+			nextAlarm = FindNextAlarm(); 
+            if(nextAlarm!=null)Console.WriteLine(nextAlarm.ToString());
 		}
 
 		//////////////////////////////Topmost////////////////////////////////

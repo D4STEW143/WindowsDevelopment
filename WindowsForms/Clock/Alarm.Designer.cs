@@ -48,6 +48,7 @@
 			this.lb_Alarms.Name = "lb_Alarms";
 			this.lb_Alarms.Size = new System.Drawing.Size(677, 228);
 			this.lb_Alarms.TabIndex = 0;
+			this.lb_Alarms.SelectedIndexChanged += new System.EventHandler(this.lb_Alarms_SelectedIndexChanged);
 			this.lb_Alarms.DoubleClick += new System.EventHandler(this.lb_Alarms_DoubleClick);
 			// 
 			// lbl_AlarmInfo

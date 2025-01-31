@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Clock
 {
-	public class AlarmClass
+	public class AlarmClass:IComparable<AlarmClass>
 	{
 		public DateTime Date { get; set; }
 		public TimeSpan Time { get; set; }
@@ -23,6 +23,21 @@ namespace Clock
 			this.FileName = other.FileName;
 			this.Message = other.Message;
 		}
+
+		public static bool operator >(AlarmClass left, AlarmClass right)
+		{
+			return left.Time > right.Time;
+		}
+		public static bool operator <(AlarmClass left, AlarmClass right)
+		{
+			return left.Time < right.Time;
+		}
+
+		public int CompareTo(AlarmClass other)
+		{
+			return this.Time.CompareTo(other.Time);
+		}
+
 		public override string ToString()
 		{
 			string info = "";
