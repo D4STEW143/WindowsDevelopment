@@ -49,7 +49,10 @@ namespace Clock
 
 		private void btn_Delete_Click(object sender, EventArgs e)
 		{
-
+			if (lb_Alarms.SelectedItem != null)
+			{
+				lb_Alarms.SelectedItems.Remove(lb_Alarms.SelectedIndex);
+			}
 		}
 	}
 }

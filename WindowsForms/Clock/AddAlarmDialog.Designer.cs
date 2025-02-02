@@ -45,10 +45,9 @@
 			// 
 			this.chkbx_UseDate.AutoSize = true;
 			this.chkbx_UseDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.chkbx_UseDate.Location = new System.Drawing.Point(20, 56);
-			this.chkbx_UseDate.Margin = new System.Windows.Forms.Padding(4);
+			this.chkbx_UseDate.Location = new System.Drawing.Point(15, 46);
 			this.chkbx_UseDate.Name = "chkbx_UseDate";
-			this.chkbx_UseDate.Size = new System.Drawing.Size(145, 35);
+			this.chkbx_UseDate.Size = new System.Drawing.Size(117, 29);
 			this.chkbx_UseDate.TabIndex = 0;
 			this.chkbx_UseDate.Text = "Use date";
 			this.chkbx_UseDate.UseVisualStyleBackColor = true;
@@ -59,10 +58,9 @@
 			this.dtp_Date.CustomFormat = "yyyy.MM.dd";
 			this.dtp_Date.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.dtp_Date.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-			this.dtp_Date.Location = new System.Drawing.Point(20, 99);
-			this.dtp_Date.Margin = new System.Windows.Forms.Padding(4);
+			this.dtp_Date.Location = new System.Drawing.Point(15, 80);
 			this.dtp_Date.Name = "dtp_Date";
-			this.dtp_Date.Size = new System.Drawing.Size(171, 37);
+			this.dtp_Date.Size = new System.Drawing.Size(129, 31);
 			this.dtp_Date.TabIndex = 1;
 			// 
 			// dtp_Time
@@ -70,11 +68,10 @@
 			this.dtp_Time.CustomFormat = "HH:mm:ss";
 			this.dtp_Time.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.dtp_Time.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-			this.dtp_Time.Location = new System.Drawing.Point(20, 13);
-			this.dtp_Time.Margin = new System.Windows.Forms.Padding(4);
+			this.dtp_Time.Location = new System.Drawing.Point(15, 11);
 			this.dtp_Time.Name = "dtp_Time";
 			this.dtp_Time.ShowUpDown = true;
-			this.dtp_Time.Size = new System.Drawing.Size(171, 37);
+			this.dtp_Time.Size = new System.Drawing.Size(129, 31);
 			this.dtp_Time.TabIndex = 2;
 			// 
 			// chklb_WeekDays
@@ -89,31 +86,28 @@
             "Пятница",
             "Суббота",
             "Воскресенье"});
-			this.chklb_WeekDays.Location = new System.Drawing.Point(199, 13);
-			this.chklb_WeekDays.Margin = new System.Windows.Forms.Padding(4);
+			this.chklb_WeekDays.Location = new System.Drawing.Point(149, 11);
 			this.chklb_WeekDays.MultiColumn = true;
 			this.chklb_WeekDays.Name = "chklb_WeekDays";
-			this.chklb_WeekDays.Size = new System.Drawing.Size(359, 106);
+			this.chklb_WeekDays.Size = new System.Drawing.Size(270, 79);
 			this.chklb_WeekDays.TabIndex = 3;
 			// 
 			// lbl_FileName
 			// 
 			this.lbl_FileName.AutoSize = true;
 			this.lbl_FileName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.lbl_FileName.Location = new System.Drawing.Point(20, 200);
-			this.lbl_FileName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+			this.lbl_FileName.Location = new System.Drawing.Point(15, 162);
 			this.lbl_FileName.Name = "lbl_FileName";
-			this.lbl_FileName.Size = new System.Drawing.Size(82, 20);
+			this.lbl_FileName.Size = new System.Drawing.Size(69, 17);
 			this.lbl_FileName.TabIndex = 4;
 			this.lbl_FileName.Text = "File name";
 			// 
 			// btn_Ok
 			// 
 			this.btn_Ok.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.btn_Ok.Location = new System.Drawing.Point(350, 233);
-			this.btn_Ok.Margin = new System.Windows.Forms.Padding(4);
+			this.btn_Ok.Location = new System.Drawing.Point(262, 189);
 			this.btn_Ok.Name = "btn_Ok";
-			this.btn_Ok.Size = new System.Drawing.Size(100, 28);
+			this.btn_Ok.Size = new System.Drawing.Size(75, 23);
 			this.btn_Ok.TabIndex = 5;
 			this.btn_Ok.Text = "OK";
 			this.btn_Ok.UseVisualStyleBackColor = true;
@@ -122,10 +116,9 @@
 			// btn_Cancel
 			// 
 			this.btn_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btn_Cancel.Location = new System.Drawing.Point(458, 233);
-			this.btn_Cancel.Margin = new System.Windows.Forms.Padding(4);
+			this.btn_Cancel.Location = new System.Drawing.Point(344, 189);
 			this.btn_Cancel.Name = "btn_Cancel";
-			this.btn_Cancel.Size = new System.Drawing.Size(100, 28);
+			this.btn_Cancel.Size = new System.Drawing.Size(75, 23);
 			this.btn_Cancel.TabIndex = 6;
 			this.btn_Cancel.Text = "Cancel";
 			this.btn_Cancel.UseVisualStyleBackColor = true;
@@ -134,25 +127,28 @@
 			// 
 			this.lbl_Message.AutoSize = true;
 			this.lbl_Message.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.lbl_Message.Location = new System.Drawing.Point(18, 149);
+			this.lbl_Message.Location = new System.Drawing.Point(14, 121);
+			this.lbl_Message.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 			this.lbl_Message.Name = "lbl_Message";
-			this.lbl_Message.Size = new System.Drawing.Size(137, 32);
+			this.lbl_Message.Size = new System.Drawing.Size(106, 26);
 			this.lbl_Message.TabIndex = 7;
 			this.lbl_Message.Text = "Message:";
 			// 
 			// tb_UserMessage
 			// 
 			this.tb_UserMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.tb_UserMessage.Location = new System.Drawing.Point(167, 143);
+			this.tb_UserMessage.Location = new System.Drawing.Point(125, 116);
+			this.tb_UserMessage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.tb_UserMessage.Name = "tb_UserMessage";
-			this.tb_UserMessage.Size = new System.Drawing.Size(391, 38);
+			this.tb_UserMessage.Size = new System.Drawing.Size(294, 32);
 			this.tb_UserMessage.TabIndex = 8;
 			// 
 			// btn_ChooseSignal
 			// 
-			this.btn_ChooseSignal.Location = new System.Drawing.Point(24, 233);
+			this.btn_ChooseSignal.Location = new System.Drawing.Point(18, 189);
+			this.btn_ChooseSignal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
 			this.btn_ChooseSignal.Name = "btn_ChooseSignal";
-			this.btn_ChooseSignal.Size = new System.Drawing.Size(128, 28);
+			this.btn_ChooseSignal.Size = new System.Drawing.Size(96, 23);
 			this.btn_ChooseSignal.TabIndex = 9;
 			this.btn_ChooseSignal.Text = "Choose signal";
 			this.btn_ChooseSignal.UseVisualStyleBackColor = true;
@@ -160,9 +156,9 @@
 			// 
 			// AddAlarmDialog
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(578, 277);
+			this.ClientSize = new System.Drawing.Size(434, 225);
 			this.Controls.Add(this.btn_ChooseSignal);
 			this.Controls.Add(this.tb_UserMessage);
 			this.Controls.Add(this.lbl_Message);
@@ -175,7 +171,6 @@
 			this.Controls.Add(this.chkbx_UseDate);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Margin = new System.Windows.Forms.Padding(4);
 			this.Name = "AddAlarmDialog";
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
