@@ -26,7 +26,7 @@ namespace Clock
 		void SetWeekDays()
 		{
 			bool[] days = Alarm.Week.ToArray();
-			for (int i = 0; i<chklb_WeekDays.Items.Count ; i++)
+			for (int i = 0; i < chklb_WeekDays.Items.Count; i++)
 			{
 				chklb_WeekDays.SetItemChecked(i, days[i]);
 			}
@@ -36,6 +36,7 @@ namespace Clock
 		{
 			dtp_Date.Enabled = chkbx_UseDate.Checked;
 			chklb_WeekDays.Enabled = !chkbx_UseDate.Checked;
+
 		}
 
 		private void btn_Ok_Click(object sender, EventArgs e)
@@ -67,7 +68,7 @@ namespace Clock
 				(
 					chklb_WeekDays.Items.Cast<object>().Select((item, index) => chklb_WeekDays.GetItemChecked(index)).ToArray()
 				);
-			if (lbl_FileName.Text != "File name" && lbl_FileName.Text !="")
+			if (lbl_FileName.Text != "File name" && lbl_FileName.Text != "")
 			{
 				Alarm.FileName = openFile.FileName;
 			}

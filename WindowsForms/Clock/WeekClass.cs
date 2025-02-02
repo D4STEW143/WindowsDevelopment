@@ -44,6 +44,7 @@ namespace Clock
 				if (arr[i] == true) info += "1";
 				else info += "0";
 			}
+			//info.Reverse();
 			return info;
 		}
 		public override string ToString()

@@ -64,7 +64,7 @@ namespace Clock
 			sw.WriteLine($"{labelTime.BackColor.ToArgb()}");
 			sw.WriteLine($"{labelTime.ForeColor.ToArgb()}");
 			sw.WriteLine($"{alarmsForm.Alarms.Items.Count}");//Сохранить количество будильников
-			for(int i = 0; i<alarmsForm.Alarms.Items.Count; i++)
+			for (int i = 0; i < alarmsForm.Alarms.Items.Count; i++)
 			{
 				AlarmClass saveAlarm = alarmsForm.Alarms.Items[i] as AlarmClass;
 				sw.WriteLine($"{saveAlarm.ToFormatString()}");
@@ -74,7 +74,7 @@ namespace Clock
 
 		void LoadSettings()
 		{
-			int alarmsCount = 0;
+			//int alarmsCount = 0;
 			StreamReader sr = null;
 			try
 			{
@@ -146,13 +146,13 @@ namespace Clock
 				axWindowsMediaPlayer1.Visible = true;
 				axWindowsMediaPlayer1.URL = nextAlarm.FileName;
 				axWindowsMediaPlayer1.settings.volume = 100;
-				if(nextAlarm.Message != "")
+				if (nextAlarm.Message != "")
 				{
 					DialogResult alarm = MessageBox.Show(this, nextAlarm.ToString(), "Alarm", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					if (alarm == DialogResult.OK) axWindowsMediaPlayer1.Ctlcontrols.stop();
 				}
 			}
-			
+
 		}
 
 		//////////////////////////////Topmost////////////////////////////////

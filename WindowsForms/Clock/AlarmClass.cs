@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Clock
 {
-	public class AlarmClass:IComparable<AlarmClass>
+	public class AlarmClass : IComparable<AlarmClass>
 	{
 		public DateTime Date { get; set; }
 		public TimeSpan Time { get; set; }
@@ -27,7 +27,7 @@ namespace Clock
 
 		public AlarmClass(string alarmString)
 		{
-            
+
 		}
 
 		public static bool operator >(AlarmClass left, AlarmClass right)
@@ -59,7 +59,7 @@ namespace Clock
 		public override string ToString()
 		{
 			string info = "";
-			info += $"{(DateTime.Now.Date+Time).ToString("HH:mm:ss")}\t{this.Week}\t{this.FileName.Split('\\').Last()}\t";
+			info += $"{(DateTime.Now.Date + Time).ToString("HH:mm:ss")}\t{this.Week}\t{this.FileName.Split('\\').Last()}\t";
 			if (this.Date != DateTime.MinValue) info += this.Date.ToString("dd.MM.yyyy");
 			return info;
 		}

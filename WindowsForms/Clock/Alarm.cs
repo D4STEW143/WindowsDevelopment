@@ -39,7 +39,7 @@ namespace Clock
 
 		private void lb_Alarms_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if(lb_Alarms.SelectedItem != null) lbl_AlarmInfo.Text = lb_Alarms.SelectedItem.ToString();
+			if (lb_Alarms.SelectedItem != null) lbl_AlarmInfo.Text = lb_Alarms.SelectedItem.ToString();
 		}
 
 		public string ToFormatString()
