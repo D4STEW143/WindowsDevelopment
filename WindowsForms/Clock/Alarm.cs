@@ -41,5 +41,15 @@ namespace Clock
 		{
 			if(lb_Alarms.SelectedItem != null) lbl_AlarmInfo.Text = lb_Alarms.SelectedItem.ToString();
 		}
+
+		public string ToFormatString()
+		{
+			return new AlarmClass(dialog.Alarm).ToFormatString();
+		}
+
+		private void btn_Delete_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

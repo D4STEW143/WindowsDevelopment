@@ -35,6 +35,17 @@ namespace Clock
 			}
 			return selectedDays;
 		}
+		public string ToFormatString()
+		{
+			string info = "";
+			bool[] arr = this.ToArray();
+			for (int i = 0; i < arr.Length; i++)
+			{
+				if (arr[i] == true) info += "1";
+				else info += "0";
+			}
+			return info;
+		}
 		public override string ToString()
 		{
 			if (Days == 127) return "Каждый день";

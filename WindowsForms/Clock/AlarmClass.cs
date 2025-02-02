@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
@@ -24,6 +25,11 @@ namespace Clock
 			this.Message = other.Message;
 		}
 
+		public AlarmClass(string alarmString)
+		{
+            
+		}
+
 		public static bool operator >(AlarmClass left, AlarmClass right)
 		{
 			return left.Time > right.Time;
@@ -38,10 +44,22 @@ namespace Clock
 			return this.Time.CompareTo(other.Time);
 		}
 
+		public string ToFormatString()
+		{
+			string info = "";
+			if (this.Date != DateTime.MinValue)
+			{
+				info += $"{this.Date.ToString("dd.MM.yyyy")}|";
+			}
+			else info += "NoDate|";
+			info += $"{(DateTime.Now.Date + Time).ToString("HH:mm:ss")}|{this.Week.ToFormatString()}|{this.Message}|{this.FileName}";
+			return info;
+		}
+
 		public override string ToString()
 		{
 			string info = "";
-			info += $"{(DateTime.Now.Date+Time).ToString("HH:mm:ss")}\t\t{this.Week}\t\t{this.FileName.Split('\\').Last()}\t\t";
+			info += $"{(DateTime.Now.Date+Time).ToString("HH:mm:ss")}\t{this.Week}\t{this.FileName.Split('\\').Last()}\t";
 			if (this.Date != DateTime.MinValue) info += this.Date.ToString("dd.MM.yyyy");
 			return info;
 		}

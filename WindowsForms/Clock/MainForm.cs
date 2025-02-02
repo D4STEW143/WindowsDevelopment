@@ -22,6 +22,7 @@ namespace Clock
 		FontDialog fontDialog;
 		Alarm alarmsForm;
 		AlarmClass nextAlarm;
+		AlarmClass createAlarm;
 		public MainForm()
 		{
 			InitializeComponent();
@@ -62,12 +63,18 @@ namespace Clock
 			sw.WriteLine($"{labelTime.Font.Size}");
 			sw.WriteLine($"{labelTime.BackColor.ToArgb()}");
 			sw.WriteLine($"{labelTime.ForeColor.ToArgb()}");
-
+			sw.WriteLine($"{alarmsForm.Alarms.Items.Count}");//Сохранить количество будильников
+			for(int i = 0; i<alarmsForm.Alarms.Items.Count; i++)
+			{
+				AlarmClass saveAlarm = alarmsForm.Alarms.Items[i] as AlarmClass;
+				sw.WriteLine($"{saveAlarm.ToFormatString()}");
+			}
 			sw.Close();
 		}
 
 		void LoadSettings()
 		{
+			int alarmsCount = 0;
 			StreamReader sr = null;
 			try
 			{
@@ -82,6 +89,7 @@ namespace Clock
 				float fontsize = Convert.ToSingle(sr.ReadLine());
 				labelTime.BackColor = Color.FromArgb(Convert.ToInt32(sr.ReadLine()));
 				labelTime.ForeColor = Color.FromArgb(Convert.ToInt32(sr.ReadLine()));
+				//alarmsCount = Convert.ToInt32(sr.ReadLine());
 
 				sr.Close();
 
@@ -127,8 +135,8 @@ namespace Clock
 				Console.WriteLine(nextAlarm.ToString());
 			}
 
-			if(
-				nextAlarm!=null &&
+			if (
+				nextAlarm != null &&
 				nextAlarm.Time.Hours == DateTime.Now.Hour &&
 				nextAlarm.Time.Minutes == DateTime.Now.Minute &&
 				nextAlarm.Time.Seconds == DateTime.Now.Second
@@ -139,8 +147,12 @@ namespace Clock
 				axWindowsMediaPlayer1.URL = nextAlarm.FileName;
 				axWindowsMediaPlayer1.settings.volume = 100;
 				if(nextAlarm.Message != "")
-					MessageBox.Show(this, nextAlarm.ToString(), "Alarm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				{
+					DialogResult alarm = MessageBox.Show(this, nextAlarm.ToString(), "Alarm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					if (alarm == DialogResult.OK) axWindowsMediaPlayer1.Ctlcontrols.stop();
+				}
 			}
+			
 		}
 
 		//////////////////////////////Topmost////////////////////////////////
